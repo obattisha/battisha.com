@@ -8,7 +8,7 @@ Live at [battisha.com](http://battisha.com).
 
 The site is a single-page experience built on the [Tooplate 2115 Marvel](https://www.tooplate.com/view/2115-marvel) template, with autoplay background music and scroll animations via [AOS.js](https://michalsnik.github.io/aos/).
 
-Shortcode generator is at [shorten.battisha.com]((http://shorten.battisha.com).
+Shortcode generator is at [shorten.battisha.com](http://shorten.battisha.com).
 
 ## Stack
 

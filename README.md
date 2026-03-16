@@ -6,20 +6,9 @@ Live at [battisha.com](http://battisha.com).
 
 ## What's inside
 
-The site is a single-page experience built on the [Tooplate 2115 Marvel](https://www.tooplate.com/view/2115-marvel) template, with autoplay background music and scroll animations via [AOS.js](https://michalsnik.github.io/aos/). Visitors are warned at the entry page and then invited to proceed at their own peril.
+The site is a single-page experience built on the [Tooplate 2115 Marvel](https://www.tooplate.com/view/2115-marvel) template, with autoplay background music and scroll animations via [AOS.js](https://michalsnik.github.io/aos/).
 
-The main page has six sections:
-
-| Section | What it does |
-|---------|-------------|
-| **Colors** | Informs you that colors include green, red, and purple. Features a photo of a rock formation. |
-| **Photos** | A carousel of photos taken by the author. |
-| **Vote** | Embedded [vote.org](https://vote.org) voter registration form. Visitors are reminded they are wasting time on the internet and therefore have time to register. |
-| **Adventure** | Skyscanner flight search widget, pre-pointed at Dublin. |
-| **Maps** | Satellite map embeds of Sossusvlei (Namibia), a location in Egypt, and Lago San Martín (Patagonia). Described as "places that are probably cooler than wherever you are now." |
-| **Information** | A form asking for your Social Security Number, bank password, and mother's maiden name. Submitting it takes you to a page that says *"Umm, you weren't actually supposed to do that."* |
-
-Clicking the social media buttons takes you to a page that says *"As if I would be that basic."*
+Shortcode generator is at [shorten.battisha.com]((http://shorten.battisha.com).
 
 ## Stack
 

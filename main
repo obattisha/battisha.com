@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en" style="max-width: 100% !important; overflow-x: hidden !important;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="I really wouldn't suggest clicking on this.">
+    <meta name="author" content="">
+
+    <title>Battisha</title>
+
+    <!-- ELEMENTS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/unicons.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" href="css/tooplate-style.css">
+
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="msapplication-config" content="favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Audio Autoplay -->
+    <iframe src="music/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+    <audio autoplay loop>
+      <source src="music/crucialsong.mp3">
+    </audio>
+
+    <!--ANIMATE-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!--
+
+Tooplate 2115 Marvel
+
+https://www.tooplate.com/view/2115-marvel
+
+-->
+  </head>
+  <body style="width: 100% !important; margin:0 auto !important; overflow-x: hidden !important;">
+
+    <!-- MENU -->
+    <nav class="navbar navbar-expand-sm navbar-light" style="background:#ffc200" data-aos="fade-down" data-aos-easing="ease-in-back" data-aos-delay="1000" data-aos-once="true">
+        <div class="container">
+            <a id="nav" class="nav-link" href="http://battisha.com"><i class="uil-webcam" style="font-size: 30px; color:#ffc200 !important"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a href="#colors" class="nav-link"><span data-hover="Colors">Colors</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#photos" class="nav-link"><span data-hover="Photos">Photos</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#vote" class="nav-link"><span data-hover="Vote">Vote</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#adventure" class="nav-link"><span data-hover="Adventure">Adventure</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#maps" class="nav-link"><span data-hover="Maps">Maps</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#information" class="nav-link"><span data-hover="Information">Information</span></a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-lg-auto" style="display:none !important">
+                    <div class="ml-lg-4">
+                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
+                        <i class="color-mode-icon"></i>
+                        Color mode
+                      </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ABOUT -->
+    <section class="about full-screen d-lg-flex justify-content-center align-items-center" id="colors" style="margin-top: 8% !important;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-7 col-md-12 col-12 d-flex align-items-center" >
+                    <div class="about-text">
+                      <div data-aos="fade-right" data-aos-delay="100" data-aos-once="true">
+                        <small class="small-text">Hmm...are you sure you want to be here?</small>
+                      </div>
+                        <h1 class="animated animated-text" data-aos="fade-right" data-aos-delay="300" data-aos-once="true">
+                            <span class="mr-2">Colors include</span>
+                                <br><div class="animated-info">
+                                    <span class="animated-item" style="color: green !important">Green</span>
+                                    <span class="animated-item" style="color: red !important">Red</span>
+                                    <span class="animated-item" style="color: purple !important">Purple</span>
+                                </div>
+                        </h1>
+
+                        <p style="margin-top:50px" data-aos="fade-right" data-aos-delay="500" data-aos-once="true">If you direct your eyes to the right (or the bottom, if you're on mobile) and pay close attention, you will see an image of a rock formation.</p>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-12 col-12" >
+                    <div class="about-image svg" data-aos="zoom-in" data-aos-delay="700" data-aos-once="true">
+                        <img src="images/mountanious.png" class="img-fluid" alt="png image">
+                    </div>
+                </div>
+            </div>
+            <center>
+            <div class="custom-btn-group mt-4" style="padding-top:3%!important;"data-aos="fade-up" data-aos-delay="1000" data-aos-easing="ease-in-back" data-aos-once="true">
+              <a id="facebookbutton"href="social" class="btn custom-btn custom-btn-bg custom-btn-link"><i class='uil-facebook'></i></a>
+              <a id="youtubebutton"href="social" class="btn custom-btn custom-btn-bg custom-btn-link"><i class='uil-youtube'></i></a>
+              <a id="instagrambutton" href="social" class="btn custom-btn custom-btn-bg custom-btn-link"><i class='uil-instagram'></i></a>
+            </div>
+          </center>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="project py-5" id="photos" data-aos="fade-up" style="margin-top: 8% !important;">
+      <center>
+        <div class="container">
+                <div class="row" >
+                  <div class="col-lg-11 text-center mx-auto col-12" >
+                      <div class="col-lg-8 mx-auto" >
+                        <h2>I took these photos</h2>
+                        <small class="small-text">Are you also capable of taking photos?</small>
+                      </div>
+
+                  <div class="owl-carousel owl-theme" data-aos="fade-up">
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image01.png" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image02.png" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image03.png" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image04.png" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image05.png" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image06.png" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                      </div>
+                  </div>
+          </div>
+      </center>
+     </section>
+
+     <!-- Vote -->
+
+     <section class="contact py-5" id="vote" data-aos="fade-left" style="margin-top: 7% !important;">
+       <div class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+         <center><h2>Please please please register to vote</h2>
+         <small  class="small-text">I mean, you're wasting time on the internet, so you clearly have the time</small>
+         </center>
+         <div class="container" data-aos="fade-left">
+          <iframe src="https://register.vote.org/?partner=111111&campaign=free-tools" style="overflow:hidden !important; padding-top:50px !important; height:1450px !important; width:100% !important" marginheight="0" frameborder="0" id="vote" scrollable ="no"></iframe>
+           <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js"></script>
+           <script type="text/javascript">iFrameResize({ log:true, checkOrigin:false});</script>
+
+           <script>
+               window.setTimeout(function () {
+                   var iframe = document.getElementById('vote');
+                   iframe.setAttribute('src', 'https://register.vote.org/?partner=111111&campaign=free-tools');
+               }, 5000);
+           </script>
+        </div>
+
+      </div>
+     </section>
+
+    <!-- KAYAK -->
+
+    <section class="contact py-5" id="adventure" data-aos="fade-right" style="margin-top: 7% !important;">
+      <div class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+        <center><h2>You should go on an adventure</h2>
+        <small  class="small-text" >Or you could leave here and go to skyscanner.com like a normal person...</small>
+        </center>
+      </div>
+          <div class="container" data-aos="fade-right"  style="height:275px;width:auto; max-width:700px;">
+            <div
+            data-skyscanner-widget="SearchWidget"
+            data-locale="en-US"
+            data-market="US"
+            data-currency="USD"
+            data-destination-name="DUB"
+            data-button-colour="#004001"
+            data-powered-by-logo-colour="dark"
+          ></div>
+          <script src="https://widgets.skyscanner.net/widget-server/js/loader.js" async></script>
+          </div>
+    </section>
+
+    <!-- MAPS -->
+    <section data-aos="fade-left" class="contact py-5" id="maps" style="margin-top: 15% !important;">
+
+     <div  class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+        <center><h2>Maps</h2>
+        <small  class="small-text" >of places that are probably cooler than wherever you are now...</small>
+        </center>
+      </div>
+      <div class="container">
+        <center>
+
+          <div data-aos="fade-left" style="box-shadow:20px 20px 40px grey;text-decoration:none; overflow:hidden;max-width:100%;width:700px;height:500px;">
+          <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Sossusvlei&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&maptype=satellite">
+          </iframe>
+          </div>
+          <a class="googlemaps-code" rel="nofollow" href="https://changing.hosting" id="get-mapdata">here</a>
+          <style>#embedmap-canvas img{max-height:none;max-width:none!important;background:none!important;}</style>
+          </div>
+
+          <div data-aos="fade-right" style="box-shadow:20px 20px 40px grey;text-decoration:none; overflow:hidden;max-width:100%;width:700px;height:500px;margin-top:10%;">
+          <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17219.39598159129!2d54.82886818543312!3d21.399895422774783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e7d2ba8b6aa2237%3A0xfc49ed45e63f7f!2z2YLZhNmF2Kkg2KfZhNi32LHZgdin2KE!5e1!3m2!1sen!2sus!4v1590190460170!5m2!1sen!2sus&">
+          <!--https://www.google.com/maps/embed/v1/place?q=قلمه+الطرفة+&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&maptype=satellite-->
+          </iframe>
+          </div>
+          <a class="googlemaps-code" rel="nofollow" href="https://changing.hosting" id="get-mapdata">here</a>
+          <style>#embedmap-canvas img{max-height:none;max-width:none!important;background:none!important;}</style>
+          </div>
+
+          <div data-aos="fade-left" style="box-shadow:20px 20px 40px grey;text-decoration:none; overflow:hidden;max-width:100%;width:700px;height:500px;margin-top:10%;">
+          <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d389491.61345936323!2d-72.73441283174135!3d-48.84321601310661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbd9626bffee1f9e1%3A0xe11281b74c115150!2sLago%20San%20Martin!5e1!3m2!1sen!2sus!4v1590191073342!5m2!1sen!2sus">
+          </iframe>
+          </div>
+          <a class="googlemaps-code" rel="nofollow" href="https://changing.hosting" id="get-mapdata">here</a>
+          <style>#embedmap-canvas img{max-height:none;max-width:none!important;background:none!important;}</style>
+          </div>
+
+        </center>
+
+          </div>
+        </section>
+
+<!-- Information -->
+<section class="contact py-5" id="information" data-aos="fade-right" style="margin-top: 7% !important; margin-bottom: 8% !important" >
+          <div class="container">
+
+            <div class="contact-form">
+              <h2 class="mb-4" style="text-align:center; margin-bottom:5% !important">Tell me more about yourself</h2>
+
+              <form method="post" action="submit" data-aos="fade-right">
+                <div class="row">
+
+                    <input type="text" class="form-control" maxlength="11" required pattern="\d{3}[\-]\d{2}[\-]\d{4}" name="ssn" placeholder="Social Security Number" id="ssn"/>
+
+                    <script type="text/javascript">
+                        document.getElementById("ssn").onkeyup = function() {
+                        var val = this.value.replace(/\D/g, '');
+                        var newVal = '';
+
+                        if(val.length > 4) {
+                          this.value = val;
+                        }
+
+                        if((val.length > 3) && (val.length < 6)) {
+                          newVal += val.substr(0, 3) + '-';
+                          val = val.substr(3);
+                        }
+
+                        if (val.length > 5) {
+                          newVal += val.substr(0, 3) + '-';
+                          newVal += val.substr(3, 2) + '-';
+                          val = val.substr(5);
+                        }
+
+                        newVal += val;
+                        this.value = newVal;
+                        };
+                    </script>
+
+                </div>
+
+                <div class="row">
+
+                    <input type="password" class="form-control" required="yes" name="bank" placeholder="Bank Password" id="pwd">
+
+                </div>
+
+                <div class="row">
+
+                    <input type="text" class="form-control" required="yes" name="message"  placeholder="Mother's Maiden Name" id="mmn"></input>
+
+                </div>
+
+                <div class="row">
+
+                    <input type="submit" class="form-control submit-btn" value="Submit" id="submit">
+
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javaScript">
+     AOS.init({
+			duration: 1000
+     });
+    </script>
+
+    <!-- FOOTER -->
+     <footer class="footer py-5">
+          <div class="container">
+               <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <p class="copyright-text text-center">Copyright &copy; <script>document.write(/\d{4}/.exec(Date())[0])</script> Bombastic Industries. All rights reserved.</p>
+                        <p class="copyright-text text-center">Designed by <a href="https://sco.wikipedia.org/wiki/special:random" target="_blank" rel="noopener noreferrer">TheEccentricEgyptian</a>.</p>
+                    </div>
+
+               </div>
+          </div>
+          <div>
+        </div>
+        
+     </footer>
+
+
+
+     <!-- Scripts -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/Headroom.js"></script>
+    <script src="js/jQuery.headroom.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>

@@ -77,25 +77,6 @@ ${msg ? `<p class="msg ${isError ? "err" : "ok"}">${esc(msg)}</p>` : ""}
 </div></body></html>`, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
 }
 
-// Proxies the RapidAPI SSN validator so the API key (RAPIDAPI_KEY secret) never reaches the browser.
-// Responds {valid: true|false}, or 503 {error} when the validator can't be reached.
-async function validateSsn(url, env) {
-  const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
-  const ssn = url.searchParams.get("ssn") || "";
-  if (!/^\d{3}-\d{2}-\d{4}$/.test(ssn)) return json({ valid: false });
-  try {
-    const r = await fetch(`https://free-social-security-number-validator.p.rapidapi.com/?usa_social_security_number=${ssn}`, {
-      headers: { "x-rapidapi-key": env.RAPIDAPI_KEY, "x-rapidapi-host": "free-social-security-number-validator.p.rapidapi.com" },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!r.ok) return json({ error: `validator returned ${r.status}` }, 503);
-    const data = await r.json();
-    return json({ valid: data.is_valid === "TRUE" || data.is_valid === true });
-  } catch (e) {
-    return json({ error: "validator unreachable" }, 503);
-  }
-}
-
 // Static files live in the SITE KV namespace (uploaded by scripts/upload-assets.py), cached at the edge.
 async function serveFile(req, env, ctx, pathname) {
   let key = decodeURIComponent(pathname).replace(/^\/+/, "").replace(/\/+$/, "");
@@ -129,7 +110,6 @@ export default {
       return file || Response.redirect("https://shorten.battisha.com/", 302);
     }
     if (path === "/shorten" || path === "/shorten.php") return Response.redirect("https://shorten.battisha.com/", 301);
-    if (path === "/api/validate-ssn") return validateSsn(url, env);
 
     // Old site POSTed the joke form to the static "submit" page; serve it, store nothing.
     const asset = await serveFile(req, env, ctx, path);

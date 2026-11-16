@@ -1067,17 +1067,13 @@ https://www.tooplate.com/view/2115-marvel
 </section>
 
 <script>
-  // Validates the SSN with RapidAPI via the site's Worker (/api/validate-ssn keeps the API key server-side).
-  async function validateSSN(ssn) {
-    let response;
-    try {
-      response = await fetch('/api/validate-ssn?ssn=' + encodeURIComponent(ssn));
-    } catch (e) {
-      throw new Error('Could not verify your SSN right now. Please try again later.');
-    }
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error('Could not verify your SSN right now. Please try again later.');
-    return data.valid === true;
+  // Standard SSN format rules, checked in the browser (nothing typed here is sent anywhere):
+  // area can't be 000, 666 or 9xx; group can't be 00; serial can't be 0000.
+  function ssnLooksValid(ssn) {
+    const m = /^(\d{3})-(\d{2})-(\d{4})$/.exec(ssn);
+    if (!m) return false;
+    const [, area, group, serial] = m;
+    return area !== '000' && area !== '666' && area[0] !== '9' && group !== '00' && serial !== '0000';
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -1098,23 +1094,14 @@ https://www.tooplate.com/view/2115-marvel
 
       // The browser only fires "submit" once every required field is filled in.
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true; submitBtn.value = 'Checking...';
-      try {
-        if (!(await validateSSN(ssnInput.value))) {
-          ssnInput.setCustomValidity('Invalid SSN');
-          ssnInput.reportValidity();
-          return;
-        }
-        // Only the SSN is checked (via RapidAPI); the other answers are never sent anywhere.
-        form.reset();
-        window.location.href = '/submit';
-      } catch (error) {
-        errorMessage.textContent = error.message;
-        errorMessage.style.display = 'block';
-      } finally {
-        submitBtn.disabled = false; submitBtn.value = 'Submit';
+      if (!ssnLooksValid(ssnInput.value)) {
+        ssnInput.setCustomValidity('Invalid SSN');
+        ssnInput.reportValidity();
+        return;
       }
+      // Go to the punchline page without sending any of the answers anywhere.
+      form.reset();
+      window.location.href = '/submit';
     });
   });
 </script>

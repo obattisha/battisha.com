@@ -19,7 +19,7 @@ Shortcode generator is at [shorten.battisha.com](https://shorten.battisha.com). 
 - [Headroom.js](https://wicky.nillia.ms/headroom.js/) for the sticky nav
 - Skyscanner and vote.org embedded widgets
 - One (1) crucial song
-- Cloudflare Workers + KV for hosting, shortcodes, and the SSN-validation proxy
+- Cloudflare Workers + KV for hosting, shortcodes
 
 ## Structure
 
@@ -31,7 +31,7 @@ site/               — everything the website serves
   data/countries.json — country list for the travel tracker
   css/ js/ images/ music/ font/ favicon/
 src/index.js        — Cloudflare Worker: serves site/, shortcode redirects,
-                      shorten.battisha.com, /api/validate-ssn (RapidAPI proxy)
+                      shorten.battisha.com
 scripts/upload-assets.py — uploads site/ into the SITE KV namespace
 wrangler.jsonc      — Worker config (KV bindings, custom domains)
 sass/               — source SCSS (not deployed)
@@ -49,6 +49,5 @@ npx wrangler deploy                                                             
 ```
 
 Static files live in KV rather than Workers Static Assets so that uploads go through the regular API token.
-The RapidAPI key is a Worker secret (`npx wrangler secret put RAPIDAPI_KEY`), never in page source.
 
 Built by TheEccentricEgyptian. All rights reserved by Bombastic Industries.

@@ -560,7 +560,8 @@ https://www.tooplate.com/view/2115-marvel
                         "Egypt", "France", "Germany", "Hong Kong", "Ireland", "Italy", "Japan",
                         "Malaysia", "Mexico", "Morocco", "Netherlands", "New Zealand", "Oman", "Panama",
                         "Portugal", "Qatar", "Saudi Arabia", "Singapore", "South Africa",
-                        "South Korea", "Spain", "Switzerland", "Taiwan", "Tanzania", "Thailand", "Turkey", "United Kingdom",
+                        "South Korea", "Spain", "Switzerland", "Taiwan", "Tanzania", "Thailand", "Türkiye", "United Kingdom",
+                        "Greece", "Hungary", "Romania", "Slovenia",
                         "United States", "Vatican City", "Zambia", "Zimbabwe"
                     ]);
         
@@ -729,11 +730,15 @@ https://www.tooplate.com/view/2115-marvel
                     if (!trimmedValue) {
                         this.suggestionsDiv.style.display = 'none'; return;
                     }
-                    const lowerCaseValue = trimmedValue.toLowerCase();
+                    // Accent-insensitive ("Tur" finds Türkiye, "Cura" finds Curaçao), plus common alternate names.
+                    const fold = str => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+                    const aliases = { 'Türkiye': ['turkey'] };
+                    const lowerCaseValue = fold(trimmedValue);
                     const matches = this.countries
                         .filter(country => {
                             if (this.excludedStates.has(country.code)) return false;
-                            return country.name.toLowerCase().includes(lowerCaseValue) &&
+                            const names = [fold(country.name), ...(aliases[country.name] || [])];
+                            return names.some(n => n.includes(lowerCaseValue)) &&
                                    !this.visitedCountries.has(country.name);
                         })
                         .slice(0, 7);
@@ -852,6 +857,7 @@ https://www.tooplate.com/view/2115-marvel
                             if (Array.isArray(savedApiNames)) {
                                 const tempSet = new Set();
                                 savedApiNames.forEach(apiCountryName => {
+                                    if (apiCountryName === 'Turkey') apiCountryName = 'Türkiye'; // renamed in country data
                                     const isValid = this.countries.some(c => c.name === apiCountryName);
                                     if (isValid) { tempSet.add(apiCountryName); }
                                     else { console.warn(`Removing invalid/outdated country: ${apiCountryName}`); }

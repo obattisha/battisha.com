@@ -93,7 +93,9 @@ async function serveFile(req, env, ctx, pathname) {
     "content-type": metadata?.ct || "application/octet-stream",
     "cache-control": isHtml ? "public, max-age=300" : "public, max-age=86400",
   } });
-  ctx.waitUntil(cache.put(cacheKey, res.clone()));
+  // Only cache non-HTML at the edge: cached pages could outlive a deploy (KV takes ~60s to propagate,
+  // so a purge right after upload can re-cache the old page). KV's own short cache keeps HTML fast.
+  if (!isHtml) ctx.waitUntil(cache.put(cacheKey, res.clone()));
   return res;
 }
 

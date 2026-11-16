@@ -1,0 +1,15 @@
+{
+  "name": "battisha-site",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "kv_namespaces": [
+    { "binding": "SHORTCODES", "id": "5515977d3f3344dd9ba89abd079ec2b0" },
+    { "binding": "SITE", "id": "dbf0b80728d247c99a5d4506bd31f1da" }
+  ],
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "battisha.com", "custom_domain": true },
+    { "pattern": "www.battisha.com", "custom_domain": true },
+    { "pattern": "shorten.battisha.com", "custom_domain": true }
+  ]
+}

@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en" style="max-width: 100% !important; overflow-x: hidden !important;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="I really wouldn't suggest clicking on this.">
+    <meta name="author" content="">
+
+    <title>Battisha</title>
+
+    <!-- ELEMENTS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/unicons.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" href="css/tooplate-style.css">
+    <!-- Slide-in animations start 100px off-screen; clip (not just hide) so phones can't be swiped/scrolled sideways. -->
+    <style>html, body { overflow-x: clip !important; }</style>
+
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="msapplication-config" content="favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Audio Autoplay -->
+    <iframe src="music/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+    <audio autoplay loop>
+      <source src="music/crucialsong.mp3">
+    </audio>
+
+    <!--ANIMATE-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!--
+
+Tooplate 2115 Marvel
+
+https://www.tooplate.com/view/2115-marvel
+
+-->
+  </head>
+  <body style="width: 100% !important; margin:0 auto !important; overflow-x: hidden !important;">
+
+    <!-- MENU -->
+    <nav class="navbar navbar-expand-sm navbar-light" style="background:#ffc200" data-aos="fade-down" data-aos-easing="ease-in-back" data-aos-delay="1000" data-aos-once="true">
+        <div class="container">
+            <a id="nav" class="nav-link" href="http://battisha.com"><i class="uil-webcam" style="font-size: 30px; color:#ffc200 !important"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a href="#colors" class="nav-link"><span data-hover="Colors">Colors</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#photos" class="nav-link"><span data-hover="Photos">Photos</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#vote" class="nav-link"><span data-hover="Vote">Vote</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#journeys" class="nav-link"><span data-hover="Journey Log">Journey Log</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#adventure" class="nav-link"><span data-hover="Adventure">Adventure</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#maps" class="nav-link"><span data-hover="Maps">Maps</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#information" class="nav-link"><span data-hover="Information">Information</span></a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-lg-auto" style="display:none !important">
+                    <div class="ml-lg-4">
+                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
+                        <i class="color-mode-icon"></i>
+                        Color mode
+                      </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ABOUT -->
+    <section class="about full-screen d-lg-flex justify-content-center align-items-center" id="colors" style="margin-top: 8% !important;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-7 col-md-12 col-12 d-flex align-items-center" >
+                    <div class="about-text">
+                      <div data-aos="fade-right" data-aos-delay="100" data-aos-once="true">
+                        <small class="small-text">Hmm...are you sure you want to be here?</small>
+                      </div>
+                        <h1 class="animated animated-text" data-aos="fade-right" data-aos-delay="300" data-aos-once="true">
+                            <span class="mr-2">Colors include</span>
+                                <br><div class="animated-info">
+                                    <span class="animated-item" style="color: green !important">Green</span>
+                                    <span class="animated-item" style="color: red !important">Red</span>
+                                    <span class="animated-item" style="color: purple !important">Purple</span>
+                                </div>
+                        </h1>
+
+                        <p style="margin-top:50px" data-aos="fade-right" data-aos-delay="500" data-aos-once="true">If you direct your eyes to the right (or the bottom, if you're on mobile) and pay close attention, you will see an image of a rock formation.</p>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-12 col-12" >
+                    <div class="about-image svg" data-aos="zoom-in" data-aos-delay="700" data-aos-once="true">
+                        <img src="images/mountanious.png" class="img-fluid" alt="png image">
+                    </div>
+                </div>
+            </div>
+            <center>
+            <div class="custom-btn-group mt-4" style="padding-top:3%!important;"data-aos="fade-up" data-aos-delay="1000" data-aos-easing="ease-in-back" data-aos-once="true">
+              <a id="facebookbutton"href="social" class="btn custom-btn custom-btn-bg custom-btn-link"><i class='uil-facebook'></i></a>
+              <a id="youtubebutton"href="social" class="btn custom-btn custom-btn-bg custom-btn-link"><i class='uil-youtube'></i></a>
+              <a id="instagrambutton" href="social" class="btn custom-btn custom-btn-bg custom-btn-link"><i class='uil-instagram'></i></a>
+            </div>
+          </center>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="project py-5" id="photos" data-aos="fade-up" style="margin-top: 8% !important;">
+      <center>
+        <div class="container">
+                <div class="row" >
+                  <div class="col-lg-11 text-center mx-auto col-12" >
+                      <div class="col-lg-8 mx-auto" >
+                        <h2>I took these photos</h2>
+                        <small class="small-text">Are you also capable of taking photos?</small>
+                      </div>
+
+                  <div class="owl-carousel owl-theme" data-aos="fade-up">
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image01.jpg" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image02.jpg" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image03.jpg" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image04.jpg" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image05.jpg" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                        <div class="item" style="padding:9% !important;">
+                          <div class="project-info">
+                            <img src="images/project/project-image06.jpg" class="img-fluid" alt="project image">
+                          </div>
+                        </div>
+
+                      </div>
+                  </div>
+          </div>
+      </center>
+     </section>
+
+     <!-- Vote -->
+
+     <section class="contact py-5" id="vote" data-aos="fade-left" style="margin-top: 7% !important;">
+       <div class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+         <center><h2>Please please please register to vote</h2>
+         <small  class="small-text">I mean, you're wasting time on the internet, so you clearly have the time</small>
+         </center>
+         <div class="container" data-aos="fade-left">
+          <!-- vote.org can't auto-resize (no iframe-resizer support), so heights are set per breakpoint from measured form heights. -->
+          <style>
+            #vote-frame { display:block; width:100%; border:0; height:2400px; }
+            @media (min-width: 768px) { #vote-frame { height:1620px; } }
+          </style>
+          <iframe src="https://register.vote.org/?partner=111111&campaign=free-tools" id="vote-frame" title="Register to vote with Vote.org" loading="lazy"></iframe>
+        </div>
+
+      </div>
+     </section>
+
+    <!--JOURNEY LOG -->
+
+    <section class="contact py-5" id="journeys" data-aos="fade-right" style="margin-top: 7% !important;">
+      <div class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+        <center><h2>You should track where you've been</h2>
+        <small  class="small-text" >and showdown to see if you've got me beat</small>
+        </center>
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+        
+        <style>
+            /* Styles specific to the Travel Tracker */
+            /* Container within the section */
+            .travel-tracker-container {
+                /* max-width: 1200px; /* Max width might be controlled by parent col-lg-8 */
+                margin: 20px auto; /* Add some vertical margin */
+                padding: 0; /* Padding might be handled by parent */
+                background-color: #ffffff; /* Optional: background if needed */
+                border-radius: 8px; /* Optional: rounded corners */
+                font-family: 'Arial', sans-serif; /* Or inherit from body */
+                color: #333;
+            }
+        
+            /* Header styling */
+            .travel-tracker-container .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 25px;
+                padding-bottom: 15px; /* Space below header */
+                border-bottom: 1px solid #eee; /* Separator line */
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+                gap: 10px; /* Space between title and buttons if wrapped */
+            }
+        
+            .travel-tracker-container .header h1 { /* Changed from h3 to h1 for semantic structure, adjust size if needed */
+                margin: 0;
+                color: #2c3e50; /* Darker heading color */
+                font-size: 1.8em; /* Adjust size as needed */
+                line-height: 1.2;
+            }
+        
+            /* Grouping for header buttons */
+            .travel-tracker-container .header-buttons {
+                display: flex;
+                gap: 10px; /* Space between buttons */
+            }
+        
+            /* General button styling */
+            .travel-tracker-container .button {
+                color: white;
+                border: none;
+                padding: 10px 18px; /* Slightly larger padding */
+                border-radius: 5px; /* Consistent rounded corners */
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.1s;
+                font-size: 0.95em;
+                font-weight: bold;
+            }
+            .travel-tracker-container .button:hover {
+                opacity: 0.9;
+            }
+            .travel-tracker-container .button:active {
+                 transform: scale(0.98); /* Slight press effect */
+            }
+        
+            /* Specific button colors */
+            .travel-tracker-container .reset-button { background-color: #e74c3c; /* Red */ }
+            .travel-tracker-container .reset-button:hover { background-color: #c0392b; }
+            .travel-tracker-container .compare-button { background-color: #2ecc71; /* Green */ }
+            .travel-tracker-container .compare-button:hover { background-color: #27ae60; }
+        
+            /* Input section styling */
+            .travel-tracker-container .input-section {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        
+            .travel-tracker-container #countryInput { /* Added container scope */
+                width: 100%;
+                padding: 12px 15px; /* More padding */
+                font-size: 16px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-sizing: border-box; /* Include padding in width */
+                transition: border-color 0.3s;
+            }
+            .travel-tracker-container #countryInput:focus {
+                border-color: #3498db; /* Highlight on focus */
+                outline: none;
+            }
+        
+            /* Suggestions dropdown */
+            .travel-tracker-container #suggestions { /* Added container scope */
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                border: 1px solid #ddd;
+                border-top: none;
+                max-height: 200px;
+                overflow-y: auto;
+                display: none;
+                z-index: 1000;
+                border-radius: 0 0 5px 5px; /* Rounded bottom corners */
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Shadow for dropdown */
+            }
+        
+            .travel-tracker-container .suggestion-item {
+                padding: 10px 15px; /* More padding */
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .travel-tracker-container .suggestion-item:hover {
+                background-color: #ecf0f1; /* Light grey hover */
+            }
+        
+            /* Map container styling */
+            .travel-tracker-container #map { /* Added container scope */
+                width: 100%;
+                height: 450px; /* Adjusted height slightly */
+                border: 1px solid #ddd;
+                margin-bottom: 25px;
+                border-radius: 5px; /* Consistent rounded corners */
+                background-color: #eaf1f4; /* Light background for map area */
+            }
+        
+            /* Visited countries list section */
+            .travel-tracker-container .visited-countries {
+                background: #f9f9f9;
+                padding: 20px;
+                border-radius: 5px;
+                margin-bottom: 25px; /* Space below list */
+                border: 1px solid #eee;
+            }
+        
+            .travel-tracker-container .visited-countries h3 {
+                margin-top: 0;
+                margin-bottom: 15px; /* Space below heading */
+                color: #34495e; /* Slightly different heading color */
+                border-bottom: 1px solid #eee; /* Separator */
+                padding-bottom: 10px;
+                font-size: 1.3em; /* Adjusted size */
+            }
+        
+            /* Styling for the list itself */
+            .travel-tracker-container #visitedList { /* Added container scope */
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                /* Responsive columns */
+                column-count: 3;
+                column-gap: 20px;
+            }
+        
+            .travel-tracker-container #visitedList li {
+                padding: 6px 0; /* Vertical padding */
+                break-inside: avoid; /* Prevent items breaking across columns */
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px dashed #eee; /* Subtle separator */
+                font-size: 0.95em;
+            }
+            .travel-tracker-container #visitedList li:last-child {
+                 border-bottom: none; /* Remove border for last item */
+            }
+        
+            /* Delete button styling */
+            .travel-tracker-container .delete-country {
+                background: none;
+                border: none;
+                color: #e74c3c; /* Red color */
+                cursor: pointer;
+                padding: 0 5px;
+                font-size: 20px; /* Larger 'x' */
+                line-height: 1;
+                transition: color 0.3s;
+            }
+            .travel-tracker-container .delete-country:hover {
+                color: #c0392b; /* Darker red on hover */
+            }
+        
+            /* Statistics display */
+            .travel-tracker-container .stats {
+                margin-bottom: 20px;
+                padding: 12px 15px;
+                background: #e9ecef; /* Light grey background */
+                border-radius: 5px;
+                font-size: 1.05em; /* Slightly larger text */
+                color: #495057;
+                /* Allow wrapping within the stats div */
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center; /* Align items vertically */
+                gap: 0 10px; /* Add horizontal gap between elements */
+            }
+            .travel-tracker-container .stats span {
+                font-weight: bold;
+            }
+            .travel-tracker-container #countryCount,
+            .travel-tracker-container #totalCountries { /* Added container scope */
+                 color: #007bff; /* Blue color for numbers */
+            }
+            /* Style for the count banter span */
+            .travel-tracker-container #countBanter { /* Added container scope */
+                font-style: italic;
+                color: #555;
+                font-weight: bold;
+                 /* Removed margin-top/bottom, handled by flex gap */
+            }
+        
+        
+            /* Comparison results section */
+            .travel-tracker-container #comparisonResults { /* Added container scope */
+                display: none; /* Hidden by default */
+                margin-top: 25px;
+                padding: 20px;
+                background-color: #e6f7ff; /* Light blue background */
+                border: 1px solid #91d5ff; /* Blue border */
+                border-radius: 5px;
+            }
+            .travel-tracker-container #comparisonResults h3 {
+                margin-top: 0;
+                margin-bottom: 15px;
+                color: #0050b3; /* Dark blue heading */
+                border-bottom: 1px solid #b3e0ff;
+                padding-bottom: 10px;
+                font-size: 1.4em; /* Adjusted size */
+            }
+            .travel-tracker-container #comparisonResults p {
+                margin-bottom: 5px; /* Reduced margin for tighter spacing */
+                line-height: 1.5;
+            }
+            /* Style for the introductory comparison paragraph */
+            .travel-tracker-container #comparisonResults p.comparison-intro {
+                 margin-bottom: 15px; /* Add space after intro paragraph */
+            }
+            .travel-tracker-container #comparisonResults ul {
+                padding-left: 20px;
+                margin-top: 5px;
+                margin-bottom: 5px; /* Reduced margin after lists */
+                list-style: disc; /* Standard bullet points */
+            }
+            .travel-tracker-container #comparisonResults li {
+                margin-bottom: 5px; /* Space between list items */
+            }
+            .travel-tracker-container #comparisonResults strong {
+                color: #003a80; /* Even darker blue for emphasis */
+            }
+            /* Style for the snarky bits within comparison results */
+            .travel-tracker-container #comparisonResults .banter {
+                font-style: italic;
+                color: #555; /* Slightly muted color for banter */
+                font-weight: bold; /* Make banter stand out a bit more */
+                display: block; /* Ensure banter takes its own line */
+                margin-top: 8px; /* Add space before banter */
+                margin-bottom: 20px; /* Add space after banter */
+                /* Removed border */
+            }
+        
+        
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .travel-tracker-container #visitedList { column-count: 2; } /* 2 columns for tablets */
+                .travel-tracker-container .header h1 { font-size: 1.6em; }
+                .travel-tracker-container .button { padding: 8px 14px; }
+            }
+        
+            @media (max-width: 480px) {
+                .travel-tracker-container #visitedList { column-count: 1; } /* 1 column for mobile */
+                .travel-tracker-container .header { flex-direction: column; align-items: flex-start; } /* Stack header items */
+                .travel-tracker-container .header-buttons { width: 100%; justify-content: flex-start; margin-top: 10px; } /* Align buttons left */
+                .travel-tracker-container .header h1 { font-size: 1.4em; }
+                .travel-tracker-container .button { width: auto; /* Allow buttons to size naturally */ }
+            }
+        </style>
+        
+        <div class="travel-tracker-container"> <div class="header">
+                <h1>Travel Tracker</h1> <div class="header-buttons">
+                    <button id="compareButton" class="button compare-button">Travel Showdown!</button>
+                    <button id="resetButton" class="button reset-button">Reset All</button>
+                </div>
+            </div>
+        
+            <div class="stats">
+                <span>Countries visited: <span id="countryCount">0</span> / <span id="totalCountries">0</span></span>
+                <span id="countBanter"></span>
+            </div>
+        
+            <div class="input-section">
+                <input type="text" id="countryInput" placeholder="Type a country name to add...">
+                <div id="suggestions"></div> </div>
+        
+            <div id="map"></div>
+        
+            <div class="visited-countries">
+                <h3>Countries Visited:</h3>
+                <ul id="visitedList">
+                    </ul>
+            </div>
+        
+            <div id="comparisonResults">
+                </div>
+        </div>
+        
+        <script>
+            /**
+             * CountryTracker Class
+             * Needs to be instantiated AFTER the HTML elements exist.
+             */
+            class CountryTracker {
+                constructor(containerElement) { // Accept container element
+                    // --- User's Data ---
+                    this.visitedCountries = new Set();
+        
+                    // --- Application State & Configuration ---
+                    this.countries = [];
+                    this.map = null;
+                    this.polygonSeries = null;
+                    this.displayOverrides = {
+                        'Israel': 'Occupied Palestine',
+                        'Palestine': 'Occupied Palestine',
+                        'Palestinian Territories': 'Occupied Palestine'
+                    };
+                    this.mapNameToApiName = {
+                        'Türkiye': 'Turkey',
+                        'Democratic Republic of Congo': 'DR Congo',
+                        'eSwatini': 'Eswatini',
+                        'United States of America': 'United States',
+                        'Russian Federation': 'Russia',
+                        'Republic of Serbia': 'Serbia',
+                        "Côte d'Ivoire": 'Ivory Coast',
+                        'Republic of Congo': 'Republic of the Congo',
+                        'Lao People\'s Democratic Republic': 'Laos',
+                        'Palestinian Territories': 'Palestine'
+                    };
+                    this.excludedStates = new Set(['IL', 'ISR']);
+        
+                    // --- Owner's Visited Countries List ---
+                    this.ownerVisitedCountries = new Set([
+                        "Australia", "Austria", "Belgium", "Canada", "Colombia", "Costa Rica",
+                        "Egypt", "France", "Germany", "Hong Kong", "Ireland", "Italy", "Japan",
+                        "Malaysia", "Mexico", "Morocco", "Netherlands", "New Zealand", "Oman", "Panama",
+                        "Portugal", "Qatar", "Saudi Arabia", "Singapore", "South Africa",
+                        "South Korea", "Spain", "Switzerland", "Taiwan", "Tanzania", "Thailand", "Turkey", "United Kingdom",
+                        "United States", "Vatican City", "Zambia", "Zimbabwe"
+                    ]);
+        
+                    // --- UI Element References (Scoped to container) ---
+                    this.container = containerElement; // Store the container
+                    this.countryInput = this.container.querySelector('#countryInput');
+                    this.suggestionsDiv = this.container.querySelector('#suggestions');
+                    this.resetButton = this.container.querySelector('#resetButton');
+                    this.compareButton = this.container.querySelector('#compareButton');
+                    this.visitedListUl = this.container.querySelector('#visitedList');
+                    this.comparisonResultsDiv = this.container.querySelector('#comparisonResults');
+                    this.countryCountSpan = this.container.querySelector('#countryCount');
+                    this.totalCountriesSpan = this.container.querySelector('#totalCountries');
+                    this.countBanterSpan = this.container.querySelector('#countBanter');
+                    this.mapDiv = this.container.querySelector('#map'); // Get map div reference
+        
+        
+                    // Start the initialization process
+                    this.init();
+                }
+        
+                /**
+                 * Initializes the tracker by fetching country data, setting up the map,
+                 * adding event listeners, and loading saved data.
+                 */
+                async init() {
+                    // Ensure map div exists before proceeding
+                     if (!this.mapDiv) {
+                         console.error("Map container div not found within the provided element.");
+                         return;
+                     }
+                    try {
+                        const response = await fetch('/data/countries.json');
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+        
+                        this.countries = data
+                            .filter(country => country.name?.common)
+                            .map(country => ({ name: country.name.common, code: country.cca2, code3: country.cca3 }))
+                            .sort((a, b) => a.name.localeCompare(b.name));
+        
+                        this.totalCountriesSpan.textContent = this.countries.length;
+        
+                        this.initializeMap(); // Pass the specific map div id
+                        this.setupEventListeners();
+                        this.loadSavedCountries();
+        
+                    } catch (error) {
+                        console.error('Error initializing the tracker:', error);
+                        this.displayError("Could not load country data. Please try refreshing the page.");
+                    }
+                }
+        
+                 /** Displays an error message to the user within the tracker container. */
+                displayError(message) {
+                    let errorDiv = this.container.querySelector('.error-message');
+                    if (!errorDiv) {
+                        errorDiv = document.createElement('div');
+                        errorDiv.className = 'error-message';
+                        errorDiv.style.color = 'red';
+                        errorDiv.style.backgroundColor = '#ffebee';
+                        errorDiv.style.border = '1px solid red';
+                        errorDiv.style.padding = '10px';
+                        errorDiv.style.marginTop = '10px';
+                        errorDiv.style.borderRadius = '5px';
+                        // Prepend error within the tracker container
+                        this.container.insertBefore(errorDiv, this.container.firstChild);
+                    }
+                    errorDiv.textContent = `Error: ${message}`;
+                }
+        
+                /** Sets up the amCharts world map. */
+                initializeMap() {
+                    am4core.useTheme(am4themes_animated);
+                    // *** Create chart in the specific map div ***
+                    let chart = am4core.create(this.mapDiv, am4maps.MapChart);
+                    this.map = chart;
+        
+                    chart.geodata = am4geodata_worldLow;
+                    chart.projection = new am4maps.projections.Miller();
+        
+                    let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+                    this.polygonSeries = polygonSeries;
+                    polygonSeries.useGeodata = true;
+                    polygonSeries.exclude = ["AQ"];
+        
+                    let polygonTemplate = polygonSeries.mapPolygons.template;
+                    polygonTemplate.fill = am4core.color("#cccccc");
+                    polygonTemplate.stroke = am4core.color("#ffffff");
+                    polygonTemplate.strokeWidth = 0.5;
+                    polygonTemplate.tooltipText = "{name}";
+        
+                    polygonTemplate.adapter.add("tooltipText", (text, target) => {
+                        const originalMapName = target.dataItem?.dataContext?.name;
+                        if (!originalMapName) return text;
+                        if (originalMapName === 'Israel' || originalMapName === 'Palestine' || originalMapName === 'Palestinian Territories') {
+                            return 'Occupied Palestine';
+                        }
+                        return this.displayOverrides[originalMapName] || originalMapName;
+                    });
+        
+                    let hs = polygonTemplate.states.create("hover");
+                    hs.properties.fill = am4core.color("#999999");
+                    let as = polygonTemplate.states.create("active");
+                    as.properties.fill = am4core.color("#2ecc71");
+        
+                    polygonTemplate.events.on("hit", (ev) => {
+                        const dataContext = ev.target?.dataItem?.dataContext;
+                        if (!dataContext || !dataContext.name) return;
+                        const originalMapName = dataContext.name;
+                        let targetApiName;
+                        if (originalMapName === 'Israel' || originalMapName === 'Palestine' || originalMapName === 'Palestinian Territories') {
+                            targetApiName = 'Palestine';
+                        } else {
+                            targetApiName = this.mapNameToApiName[originalMapName] || originalMapName;
+                        }
+                        const countryData = this.countries.find(c => c.name === targetApiName);
+                        if (!countryData || this.excludedStates.has(countryData.code)) {
+                             console.log(`Interaction blocked for excluded or unknown API country: ${targetApiName} (from map: ${originalMapName})`);
+                             return;
+                         }
+                        if (this.visitedCountries.has(targetApiName)) {
+                            this.removeCountry(targetApiName);
+                        } else {
+                            this.addCountry(targetApiName);
+                        }
+                    });
+                    chart.zoomControl = new am4maps.ZoomControl();
+                }
+        
+                /** Sets up event listeners for input field, buttons, etc. */
+                setupEventListeners() {
+                    // Use stored references scoped to the container
+                    this.countryInput.addEventListener('input', () => this.handleInput(this.countryInput.value));
+                    this.countryInput.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            const firstSuggestion = this.suggestionsDiv.querySelector('.suggestion-item');
+                            if (firstSuggestion) {
+                                this.addCountry(firstSuggestion.textContent);
+                                this.clearInputAndSuggestions();
+                            }
+                        }
+                    });
+                    this.suggestionsDiv.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('suggestion-item')) {
+                            this.addCountry(e.target.textContent);
+                            this.clearInputAndSuggestions();
+                        }
+                    });
+                    // Global click listener still needed to hide suggestions
+                    document.addEventListener('click', (e) => {
+                         // Check if click is outside the input AND outside the suggestions div *within this specific tracker instance*
+                        if (!this.countryInput.contains(e.target) && !this.suggestionsDiv.contains(e.target)) {
+                            this.suggestionsDiv.style.display = 'none';
+                        }
+                    });
+                    this.resetButton.addEventListener('click', () => this.resetAll());
+                    this.compareButton.addEventListener('click', () => this.compareLists());
+                }
+        
+                /** Handles user input in the country text field to show suggestions. */
+                handleInput(value) {
+                    const trimmedValue = value.trim();
+                    if (!trimmedValue) {
+                        this.suggestionsDiv.style.display = 'none'; return;
+                    }
+                    const lowerCaseValue = trimmedValue.toLowerCase();
+                    const matches = this.countries
+                        .filter(country => {
+                            if (this.excludedStates.has(country.code)) return false;
+                            return country.name.toLowerCase().includes(lowerCaseValue) &&
+                                   !this.visitedCountries.has(country.name);
+                        })
+                        .slice(0, 7);
+        
+                    if (matches.length > 0) {
+                        this.suggestionsDiv.innerHTML = matches
+                            .map(country => `<div class="suggestion-item" data-country-name="${country.name}">${country.name}</div>`)
+                            .join('');
+                        this.suggestionsDiv.style.display = 'block';
+                    } else {
+                        this.suggestionsDiv.style.display = 'none';
+                    }
+                }
+        
+                /** Clears the input field and hides the suggestions dropdown. */
+                clearInputAndSuggestions() {
+                    this.countryInput.value = '';
+                    this.suggestionsDiv.style.display = 'none';
+                }
+        
+                /** Adds a country to the user's visited list using the API name. */
+                addCountry(apiCountryName) {
+                     const countryData = this.countries.find(c => c.name === apiCountryName);
+                     if (!countryData || this.excludedStates.has(countryData.code)) {
+                         console.warn(`Attempted to add excluded or unknown country: ${apiCountryName}`);
+                         return;
+                     }
+                    if (!this.visitedCountries.has(apiCountryName)) {
+                        this.visitedCountries.add(apiCountryName);
+                        this.updateUI(); this.saveCountries(); this.hideComparisonResults();
+                    }
+                }
+        
+                /** Removes a country from the user's visited list using the API name. */
+                removeCountry(apiCountryName) {
+                    if (this.visitedCountries.has(apiCountryName)) {
+                        this.visitedCountries.delete(apiCountryName);
+                        this.updateUI(); this.saveCountries(); this.hideComparisonResults();
+                    }
+                }
+        
+                /** Updates the entire UI based on the current state of visitedCountries. */
+                updateUI() {
+                    this.updateVisitedList();
+                    this.updateMapHighlights();
+                    this.updateCountryCount();
+                }
+        
+                /** Updates the displayed list of visited countries (uses API names). */
+                updateVisitedList() {
+                    this.visitedListUl.innerHTML = '';
+                    const sortedCountries = Array.from(this.visitedCountries).sort();
+                    sortedCountries.forEach(apiCountryName => {
+                        const li = document.createElement('li');
+                        li.textContent = apiCountryName;
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'delete-country';
+                        deleteButton.innerHTML = '&times;';
+                        deleteButton.title = `Remove ${apiCountryName}`;
+                        deleteButton.dataset.country = apiCountryName;
+                        deleteButton.addEventListener('click', (e) => {
+                            e.stopPropagation(); this.removeCountry(deleteButton.dataset.country);
+                        });
+                        li.appendChild(deleteButton);
+                        this.visitedListUl.appendChild(li);
+                    });
+                }
+        
+                /** Updates map highlights, linking Israel & Palestine polygons to "Palestine" state */
+                updateMapHighlights() {
+                    if (!this.polygonSeries) return;
+                    const isPalestineVisited = this.visitedCountries.has('Palestine');
+                    this.polygonSeries.mapPolygons.each((polygon) => {
+                        const dataContext = polygon.dataItem?.dataContext;
+                        if (!dataContext || !dataContext.name) { polygon.isActive = false; return; };
+                        const originalMapName = dataContext.name;
+                        let isActive = false;
+                        if (originalMapName === 'Israel' || originalMapName === 'Palestine' || originalMapName === 'Palestinian Territories') {
+                            isActive = isPalestineVisited;
+                        } else {
+                            const apiCountryName = this.mapNameToApiName[originalMapName] || originalMapName;
+                            isActive = this.visitedCountries.has(apiCountryName);
+                        }
+                        polygon.isActive = isActive;
+                    });
+                }
+        
+                 /** Updates the displayed count of visited countries AND the count-based banter. */
+                 updateCountryCount() {
+                    const userCount = this.visitedCountries.size;
+                    this.countryCountSpan.textContent = userCount;
+                    let sizeComment = '';
+                     if (userCount === 0) { sizeComment = ''; }
+                     else if (userCount <= 5) { sizeComment = `Don’t worry,the world’s not going anywhere. But apparently, neither are you.`; }
+                     else if (userCount <= 15) { sizeComment = `You've been everywhere--if everywhere was what we called places with a Hard Rock Cafe.`; }
+                     else if (userCount <= 30) { sizeComment = `Looks like you've been around enough to completely butcher at least four languages.`; }
+                     else if (userCount <= 50) { sizeComment = `Respectable numbers. Questionable choices.`; }
+                     else { sizeComment = `Alright, Marco Polo, calm down.`; }
+                    this.countBanterSpan.textContent = sizeComment;
+                 }
+        
+                /** Saves the current list of visited countries (API names) to localStorage. */
+                saveCountries() {
+                    try {
+                        localStorage.setItem('visitedCountries_tracker', // Use a unique key if multiple trackers might exist
+                            JSON.stringify(Array.from(this.visitedCountries)));
+                    } catch (e) { console.error("Error saving countries to localStorage:", e); }
+                }
+        
+                /** Loads visited countries (API names) from localStorage when the page loads. */
+                loadSavedCountries() {
+                    const savedData = localStorage.getItem('visitedCountries_tracker'); // Use unique key
+                    if (savedData) {
+                        try {
+                            const savedApiNames = JSON.parse(savedData);
+                            if (Array.isArray(savedApiNames)) {
+                                const tempSet = new Set();
+                                savedApiNames.forEach(apiCountryName => {
+                                    const isValid = this.countries.some(c => c.name === apiCountryName);
+                                    if (isValid) { tempSet.add(apiCountryName); }
+                                    else { console.warn(`Removing invalid/outdated country: ${apiCountryName}`); }
+                                });
+                                this.visitedCountries = tempSet;
+                                this.updateUI();
+                            } else { throw new Error("Saved data is not an array."); }
+                        } catch (e) {
+                            console.error("Error parsing saved countries:", e);
+                            localStorage.removeItem('visitedCountries_tracker');
+                        }
+                    } else { this.updateCountryCount(); }
+                }
+        
+                /** Resets the tracker, clearing the user's list and map highlights. */
+                resetAll() {
+                    if (confirm('Are you sure you want to clear your visited countries list? This cannot be undone.')) {
+                        this.visitedCountries.clear();
+                        this.updateUI();
+                        localStorage.removeItem('visitedCountries_tracker'); // Use unique key
+                        this.hideComparisonResults();
+                        console.log("Visited countries list has been reset.");
+                    }
+                }
+        
+                /** Compares the user's list with the owner's list and displays the results. */
+                compareLists() {
+                    const userList = this.visitedCountries;
+                    const ownerList = this.ownerVisitedCountries;
+                    const userCount = userList.size;
+                    const bothVisited = [...userList].filter(country => ownerList.has(country)).sort();
+                    const userOnlyVisited = [...userList].filter(country => !ownerList.has(country)).sort();
+        
+                    let html = `<h3>Travel Showdown!</h3>`;
+                    html += `<p class="comparison-intro">Okay, let's see... you've marked <strong>${userCount}</strong> ${userCount === 1 ? 'country' : 'countries'} as visited.</p>`;
+        
+                    if (userCount === 0) {
+                        html += `<p class="banter">Zero countries? Really? Come on, click a few places you've been so we can actually compare something!</p>`;
+                    } else {
+                        if (userOnlyVisited.length === 0 && bothVisited.length > 0) {
+                            html += `<p>Looks like you've visited <strong>${bothVisited.length}</strong> ${bothVisited.length === 1 ? 'country' : 'countries'} that I have too.</p>`;
+                            html += `<ul>${bothVisited.map(c => `<li>${c}</li>`).join('')}</ul>`;
+                            html += `<p class="banter">At this rate, your passport should just say "Ask Omar first."</p>`;
+                        } else if (userOnlyVisited.length > 0 && bothVisited.length === 0) {
+                             html += `<p>You've visited <strong>${userOnlyVisited.length}</strong> ${userOnlyVisited.length === 1 ? 'country' : 'countries'}, none of which I've been to.</p>`;
+                             html += `<ul>${userOnlyVisited.map(c => `<li>${c}</li>`).join('')}</ul>`;
+                             html += `<p class="banter">No overlaps? I guess someone had to take the road less interesting. Jk, I'm actually super jealous.</p>`;
+                        } else if (userOnlyVisited.length > 0 && bothVisited.length > 0) {
+                            html += `<p>We have <strong>${bothVisited.length}</strong> ${bothVisited.length === 1 ? 'country' : 'countries'} in common.</p>`;
+                            html += `<ul>${bothVisited.map(c => `<li>${c}</li>`).join('')}</ul>`;
+                            html += `<p class="banter">Look at us--two people making customs officers nervous in the same places.</p>`;
+                            html += `<p>And you've been to <strong>${userOnlyVisited.length}</strong> ${userOnlyVisited.length === 1 ? 'country' : 'countries'} I haven't been to...yet.</p>`;
+                            html += `<ul>${userOnlyVisited.map(c => `<li>${c}</li>`).join('')}</ul>`;
+                            html += `<p class="banter">Bold of you to visit places even I couldn't be bothered with.</p>`;
+                        }
+                    }
+                    this.comparisonResultsDiv.innerHTML = html;
+                    this.comparisonResultsDiv.style.display = 'block';
+                    this.comparisonResultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+        
+                /** Hides the comparison results section. */
+                hideComparisonResults() {
+                     if (this.comparisonResultsDiv) {
+                         this.comparisonResultsDiv.style.display = 'none';
+                         this.comparisonResultsDiv.innerHTML = '';
+                     }
+                }
+            }
+        
+            // --- Initialization ---
+            // Find the specific container for this tracker instance
+            const trackerContainer = document.querySelector('#journeys .travel-tracker-container'); // Use a specific selector
+            if (trackerContainer) {
+                 // Create an instance of the CountryTracker class, passing the container
+                const trackerInstance = new CountryTracker(trackerContainer);
+            } else {
+                console.error("Could not find the travel tracker container element (#journeys .travel-tracker-container).");
+            }
+        
+        </script>        
+          </div>
+    </section>
+
+    <!-- SKYSCANNER -->
+
+    <section class="contact py-5" id="adventure" data-aos="fade-left" style="margin-top: 7% !important;">
+      <div class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+        <center><h2>You should go on an adventure</h2>
+        <small  class="small-text" >Or you could leave here and go to skyscanner.com like a normal person...</small>
+        </center>
+      </div>
+          <div class="container" data-aos="fade-right"  style="height:275px;width:auto; max-width:700px;">
+            <div
+            data-skyscanner-widget="SearchWidget"
+            data-locale="en-US"
+            data-market="US"
+            data-currency="USD"
+            data-destination-name="DUB"
+            data-button-colour="#004001"
+            data-powered-by-logo-colour="dark"
+          ></div>
+          <script src="https://widgets.skyscanner.net/widget-server/js/loader.js" async></script>
+          </div>
+    </section>
+
+    <!-- MAPS -->
+    <section data-aos="fade-right" class="contact py-5" id="maps" style="margin-top: 15% !important;">
+
+     <div  class="col-lg-8 mx-auto" style="padding-bottom:5% !important;">
+        <center><h2>Maps</h2>
+        <small  class="small-text" >of places that are probably cooler than wherever you are now...</small>
+        </center>
+      </div>
+      <div class="container">
+        <center>
+
+          <div data-aos="fade-right" style="box-shadow:20px 20px 40px grey;text-decoration:none; overflow:hidden;max-width:100%;width:700px;height:500px;">
+          <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Sossusvlei&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&maptype=satellite">
+          </iframe>
+          </div>
+          <a class="googlemaps-code" rel="nofollow" href="https://changing.hosting" id="get-mapdata">here</a>
+          <style>#embedmap-canvas img{max-height:none;max-width:none!important;background:none!important;}</style>
+          </div>
+
+          <div data-aos="fade-left" style="box-shadow:20px 20px 40px grey;text-decoration:none; overflow:hidden;max-width:100%;width:700px;height:500px;margin-top:10%;">
+          <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17219.39598159129!2d54.82886818543312!3d21.399895422774783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e7d2ba8b6aa2237%3A0xfc49ed45e63f7f!2z2YLZhNmF2Kkg2KfZhNi32LHZgdin2KE!5e1!3m2!1sen!2sus!4v1590190460170!5m2!1sen!2sus&">
+          <!--https://www.google.com/maps/embed/v1/place?q=قلمه+الطرفة+&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&maptype=satellite-->
+          </iframe>
+          </div>
+          <a class="googlemaps-code" rel="nofollow" href="https://changing.hosting" id="get-mapdata">here</a>
+          <style>#embedmap-canvas img{max-height:none;max-width:none!important;background:none!important;}</style>
+          </div>
+
+          <div data-aos="fade-right" style="box-shadow:20px 20px 40px grey;text-decoration:none; overflow:hidden;max-width:100%;width:700px;height:500px;margin-top:10%;">
+          <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d389491.61345936323!2d-72.73441283174135!3d-48.84321601310661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbd9626bffee1f9e1%3A0xe11281b74c115150!2sLago%20San%20Martin!5e1!3m2!1sen!2sus!4v1590191073342!5m2!1sen!2sus">
+          </iframe>
+          </div>
+          <a class="googlemaps-code" rel="nofollow" href="https://changing.hosting" id="get-mapdata">here</a>
+          <style>#embedmap-canvas img{max-height:none;max-width:none!important;background:none!important;}</style>
+          </div>
+
+        </center>
+
+          </div>
+        </section>
+
+<!-- Information -->
+<section class="contact py-5" id="information" data-aos="fade-left" style="margin-top: 7% !important; margin-bottom: 8% !important">
+  <div class="container">
+    <div class="contact-form">
+      <h2 class="mb-4" style="text-align: center; margin-bottom: 5% !important">Tell me more about yourself</h2>
+
+      <form id="infoForm" action="#" autocomplete="off" data-aos="fade-right">
+        <div class="row">
+          <input type="text" class="form-control" maxlength="11"
+                 name="ssn" placeholder="Social Security Number"
+                 id="ssn" required pattern="\d{3}-\d{2}-\d{4}"
+                 aria-required="true"/>
+          <script type="text/javascript">
+            /**
+             * Formats SSN input value as XXX-XX-XXXX
+             * on each key press.
+             */
+            document.getElementById("ssn").onkeyup = function () {
+              var val = this.value.replace(/\D/g, '');
+              var newVal = '';
+
+              if (val.length > 4) {
+                this.value = val;
+              }
+
+              if ((val.length > 3) && (val.length < 6)) {
+                newVal += val.substr(0, 3) + '-';
+                val = val.substr(3);
+              }
+
+              if (val.length > 5) {
+                newVal += val.substr(0, 3) + '-';
+                newVal += val.substr(3, 2) + '-';
+                val = val.substr(5);
+              }
+
+              newVal += val;
+              this.value = newVal;
+            };
+          </script>
+        </div>
+
+        <div class="row">
+          <input type="password" class="form-control"
+                 name="bank" placeholder="Bank Password"
+                 id="pwd" required aria-required="true">
+        </div>
+
+        <div class="row">
+          <input type="text" class="form-control" required="yes"
+                 name="message" placeholder="Mother's Maiden Name"
+                 id="mmn" required aria-required="true">
+        </div>
+
+        <div class="row">
+          <input type="submit" class="form-control submit-btn" value="Submit" id="submitBtn">
+        </div>
+      </form>
+
+      <p id="error-message" style="color: red; display: none;">Invalid Social Security Number. Please try again.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Validates the SSN with RapidAPI via the site's Worker (/api/validate-ssn keeps the API key server-side).
+  async function validateSSN(ssn) {
+    let response;
+    try {
+      response = await fetch('/api/validate-ssn?ssn=' + encodeURIComponent(ssn));
+    } catch (e) {
+      throw new Error('Could not verify your SSN right now. Please try again later.');
+    }
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error('Could not verify your SSN right now. Please try again later.');
+    return data.valid === true;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('infoForm');
+    const ssnInput = document.getElementById('ssn');
+
+    ssnInput.oninput = function () {
+      this.setCustomValidity('');
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.style.display = 'none';
+    };
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.style.display = 'none'; // Reset error message display
+      ssnInput.setCustomValidity(''); // Clear any previous validation errors
+
+      // The browser only fires "submit" once every required field is filled in.
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true; submitBtn.value = 'Checking...';
+      try {
+        if (!(await validateSSN(ssnInput.value))) {
+          ssnInput.setCustomValidity('Invalid SSN');
+          ssnInput.reportValidity();
+          return;
+        }
+        // Only the SSN is checked (via RapidAPI); the other answers are never sent anywhere.
+        form.reset();
+        window.location.href = '/submit';
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false; submitBtn.value = 'Submit';
+      }
+    });
+  });
+</script>
+
+    <script type="text/javaScript">
+     AOS.init({
+			duration: 1000
+     });
+     // Embedded widgets (vote.org, Skyscanner, maps) change the page height after AOS measures it,
+     // which left lower sections stuck mid-animation on phones. Re-measure once they've loaded.
+     window.addEventListener('load', function () { AOS.refresh(); setTimeout(function () { AOS.refresh(); }, 2000); });
+    </script>
+
+    <!-- FOOTER -->
+     <footer class="footer py-5">
+          <div class="container">
+               <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <p class="copyright-text text-center">Copyright &copy; <script>document.write(/\d{4}/.exec(Date())[0])</script> Bombastic Industries. All rights reserved.</p>
+                        <p class="copyright-text text-center">Designed by <a href="https://sco.wikipedia.org/wiki/special:random" target="_blank" rel="noopener noreferrer">TheEccentricEgyptian</a>.</p>
+                    </div>
+
+               </div>
+          </div>
+          <div>
+        </div>
+        
+     </footer>
+
+
+
+     <!-- Scripts -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/Headroom.js"></script>
+    <script src="js/jQuery.headroom.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>

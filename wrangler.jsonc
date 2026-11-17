@@ -7,6 +7,8 @@
     { "binding": "SITE", "id": "dbf0b80728d247c99a5d4506bd31f1da" },
     { "binding": "PRIVATE", "id": "d48a0b036f3d4903943e39b2460c72dd" }  // Oura tokens + sleep cache; never served
   ],
+  // Direct link to the oura-mcp Worker (used by the sleep section; see src/sleep.js)
+  "services": [{ "binding": "OURA_MCP", "service": "oura-mcp" }],
   "workers_dev": true,
   "routes": [
     { "pattern": "battisha.com", "custom_domain": true },

@@ -1,176 +1,179 @@
-// "Is Omar asleep?" — Oura connection + sleep summary for battisha.com/sleep.
+// "How much did Omar sleep last night?" — backend for the sleep section on the main page.
 //
-// The site has its own Oura OAuth connection (separate from the oura-mcp Worker), stored in the
-// PRIVATE KV namespace. Oura only receives data when the ring syncs with the phone, so "asleep
-// right now" is answered from fresh heart-rate data when there is some, and otherwise from Omar's
-// usual sleep window.
+// Data comes from Omar's own Oura MCP server (the oura-mcp Worker), which this site talks to as an
+// ordinary MCP client: it registered itself, Omar approved it once via /oura/connect, and the
+// resulting MCP tokens live in the PRIVATE KV namespace (never served). Only the number of hours
+// slept leaves this Worker — no bedtimes or other sleep data.
 //
-// Secrets (Worker → Settings → Variables and Secrets):
-//   OURA_CLIENT_ID, OURA_CLIENT_SECRET   from the Oura API application
-//   OURA_CONNECT_KEY                     random string; /oura/connect?key=… only works with it
+// Secrets / bindings:
+//   OURA_CONNECT_KEY   random string; /oura/connect?key=… only works with it
+//   OURA_MCP           service binding to the oura-mcp Worker (Worker-to-Worker without the public URL)
 
-const AUTHORIZE_URL = "https://cloud.ouraring.com/oauth/authorize";
-const TOKEN_URL = "https://api.ouraring.com/oauth/token";
-const API = "https://api.ouraring.com/v2/usercollection/";
-const TOKENS_KEY = "oura_tokens";
-const CACHE_KEY = "sleep_summary";
+const MCP_ORIGIN = "https://oura-mcp.obattisha.workers.dev";
+const CLIENT_KEY = "mcp_client";
+const TOKENS_KEY = "mcp_tokens";
+const CACHE_KEY = "sleep_hours";
 const CACHE_MS = 10 * 60 * 1000;
 
-const json = (body, status = 200, extra = {}) =>
-  new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store", ...extra } });
+const json = (body, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
 
-// ---------- OAuth ----------
+// Requests to the MCP go over the service binding when there is one (Cloudflare can block a Worker
+// from fetching another workers.dev Worker on the same account); otherwise over the public URL.
+function mcpFetch(env, path, init) {
+  const url = MCP_ORIGIN + path;
+  return env.OURA_MCP ? env.OURA_MCP.fetch(new Request(url, init)) : fetch(url, init);
+}
+
+const b64url = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+
+// ---------- one-time connection (OAuth 2.1 + PKCE against the MCP server) ----------
+
+async function client(env, redirectUri) {
+  const saved = JSON.parse((await env.PRIVATE.get(CLIENT_KEY)) || "null");
+  if (saved && saved.redirect_uri === redirectUri) return saved;
+  const r = await mcpFetch(env, "/register", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      client_name: "battisha.com sleep section",
+      redirect_uris: [redirectUri],
+      grant_types: ["authorization_code", "refresh_token"],
+      response_types: ["code"],
+      token_endpoint_auth_method: "none",
+    }),
+  });
+  if (!r.ok) throw new Error(`MCP client registration failed (${r.status})`);
+  const c = await r.json();
+  const out = { client_id: c.client_id, redirect_uri: redirectUri };
+  await env.PRIVATE.put(CLIENT_KEY, JSON.stringify(out));
+  return out;
+}
 
 export async function ouraConnect(url, env) {
-  if (!env.OURA_CLIENT_ID || !env.OURA_CONNECT_KEY) return new Response("Oura isn't configured yet.", { status: 503 });
-  if (url.searchParams.get("key") !== env.OURA_CONNECT_KEY) return new Response("Nope.", { status: 403 });
+  if (!env.OURA_CONNECT_KEY || url.searchParams.get("key") !== env.OURA_CONNECT_KEY) return new Response("Nope.", { status: 403 });
+  const redirectUri = `${url.origin}/oura/callback`;
+  const c = await client(env, redirectUri);
   const state = crypto.randomUUID();
-  await env.PRIVATE.put(`oauth_state:${state}`, "1", { expirationTtl: 600 });
-  const auth = new URL(AUTHORIZE_URL);
-  auth.searchParams.set("response_type", "code");
-  auth.searchParams.set("client_id", env.OURA_CLIENT_ID);
-  auth.searchParams.set("redirect_uri", `${url.origin}/oura/callback`);
-  auth.searchParams.set("scope", "daily heartrate");
-  auth.searchParams.set("state", state);
+  const verifier = b64url(crypto.getRandomValues(new Uint8Array(32)));
+  const challenge = b64url(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)));
+  await env.PRIVATE.put(`oauth_state:${state}`, verifier, { expirationTtl: 900 });
+  const auth = new URL(MCP_ORIGIN + "/authorize");
+  auth.search = new URLSearchParams({
+    response_type: "code", client_id: c.client_id, redirect_uri: redirectUri,
+    code_challenge: challenge, code_challenge_method: "S256", state,
+  }).toString();
   return Response.redirect(auth.toString(), 302);
 }
 
 export async function ouraCallback(url, env) {
   const state = url.searchParams.get("state"), code = url.searchParams.get("code");
-  if (!state || !(await env.PRIVATE.get(`oauth_state:${state}`))) return new Response("Expired or invalid sign-in attempt. Start again from /oura/connect.", { status: 400 });
+  const verifier = state && (await env.PRIVATE.get(`oauth_state:${state}`));
+  if (!verifier) return new Response("Expired or invalid sign-in attempt. Start again from /oura/connect.", { status: 400 });
   await env.PRIVATE.delete(`oauth_state:${state}`);
-  if (!code) return new Response(`Oura said no: ${url.searchParams.get("error") || "unknown error"}`, { status: 400 });
-  const tokens = await postToken(env, { grant_type: "authorization_code", code, redirect_uri: `${url.origin}/oura/callback` });
+  if (!code) return new Response(`Connection refused: ${url.searchParams.get("error") || "unknown error"}`, { status: 400 });
+  const c = JSON.parse(await env.PRIVATE.get(CLIENT_KEY));
+  const tokens = await tokenRequest(env, { grant_type: "authorization_code", code, redirect_uri: c.redirect_uri, client_id: c.client_id, code_verifier: verifier });
   await env.PRIVATE.put(TOKENS_KEY, JSON.stringify(tokens));
   await env.PRIVATE.delete(CACHE_KEY);
-  return Response.redirect(`${url.origin}/sleep`, 302);
+  return Response.redirect(`${url.origin}/main#sleep`, 302);
 }
 
-async function postToken(env, params) {
-  const r = await fetch(TOKEN_URL, {
+async function tokenRequest(env, params) {
+  const r = await mcpFetch(env, "/token", {
     method: "POST",
     headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ ...params, client_id: env.OURA_CLIENT_ID, client_secret: env.OURA_CLIENT_SECRET }),
+    body: new URLSearchParams(params).toString(),
   });
-  if (!r.ok) throw new Error(`Oura token request failed (${r.status})`);
+  if (!r.ok) throw new Error(`MCP token request failed (${r.status})`);
   const t = await r.json();
-  return { access_token: t.access_token, refresh_token: t.refresh_token, expires_at: Date.now() + t.expires_in * 1000 };
+  return { access_token: t.access_token, refresh_token: t.refresh_token, expires_at: Date.now() + (t.expires_in || 3600) * 1000 };
 }
 
-async function accessToken(env) {
-  const raw = await env.PRIVATE.get(TOKENS_KEY);
-  if (!raw) return null;
-  let t = JSON.parse(raw);
-  if (t.expires_at - Date.now() < 60_000) {
-    try {
-      t = await postToken(env, { grant_type: "refresh_token", refresh_token: t.refresh_token });
-      await env.PRIVATE.put(TOKENS_KEY, JSON.stringify(t));
-    } catch (e) {
-      // Refresh tokens are single-use: if a parallel request just refreshed, use what it stored.
-      const again = JSON.parse((await env.PRIVATE.get(TOKENS_KEY)) || "null");
-      if (again && again.expires_at - Date.now() > 60_000) return again.access_token;
-      throw e;
-    }
+async function accessToken(env, force = false) {
+  const t = JSON.parse((await env.PRIVATE.get(TOKENS_KEY)) || "null");
+  if (!t) return null;
+  if (!force && t.expires_at - Date.now() > 60_000) return t.access_token;
+  const c = JSON.parse(await env.PRIVATE.get(CLIENT_KEY));
+  const fresh = await tokenRequest(env, { grant_type: "refresh_token", refresh_token: t.refresh_token, client_id: c.client_id });
+  if (!fresh.refresh_token) fresh.refresh_token = t.refresh_token;
+  await env.PRIVATE.put(TOKENS_KEY, JSON.stringify(fresh));
+  return fresh.access_token;
+}
+
+// ---------- calling the MCP tool ----------
+
+// Streamable HTTP responses may be plain JSON or a short SSE stream; return the JSON-RPC message.
+async function rpcResult(resp) {
+  const text = await resp.text();
+  if ((resp.headers.get("content-type") || "").includes("text/event-stream")) {
+    const data = text.split("\n").filter((l) => l.startsWith("data:")).map((l) => l.slice(5).trim()).filter(Boolean);
+    return JSON.parse(data[data.length - 1]);
   }
-  return t.access_token;
+  return JSON.parse(text);
 }
 
-async function ouraGet(token, path, params) {
-  const r = await fetch(`${API}${path}?${new URLSearchParams(params)}`, { headers: { Authorization: `Bearer ${token}` } });
-  if (!r.ok) throw new Error(`Oura ${path} failed (${r.status})`);
-  const out = [];
-  let page = await r.json();
-  out.push(...page.data);
-  while (page.next_token) {
-    const n = await fetch(`${API}${path}?${new URLSearchParams({ ...params, next_token: page.next_token })}`, { headers: { Authorization: `Bearer ${token}` } });
-    if (!n.ok) break;
-    page = await n.json(); out.push(...page.data);
-  }
-  return out;
+async function callTool(env, token, name, args) {
+  const headers = { "content-type": "application/json", accept: "application/json, text/event-stream", authorization: `Bearer ${token}` };
+  const post = (body, extra = {}) => mcpFetch(env, "/mcp", { method: "POST", headers: { ...headers, ...extra }, body: JSON.stringify(body) });
+  const init = await post({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "battisha.com", version: "1.0" } } });
+  if (init.status === 401) { const e = new Error("unauthorized"); e.status = 401; throw e; }
+  if (!init.ok) throw new Error(`MCP initialize failed (${init.status})`);
+  const session = init.headers.get("mcp-session-id");
+  const extra = session ? { "mcp-session-id": session } : {};
+  await rpcResult(init);
+  await post({ jsonrpc: "2.0", method: "notifications/initialized" }, extra);
+  const r = await post({ jsonrpc: "2.0", id: 2, method: "tools/call", params: { name, arguments: args } }, extra);
+  if (!r.ok) throw new Error(`MCP tools/call failed (${r.status})`);
+  const msg = await rpcResult(r);
+  if (msg.error || msg.result?.isError) throw new Error(`MCP tool error: ${JSON.stringify(msg.error || msg.result.content).slice(0, 200)}`);
+  return JSON.parse(msg.result.content[0].text);
 }
 
-// ---------- the summary ----------
+// ---------- the summary: hours slept on the most recent night, nothing else ----------
 
-const ymd = (d) => d.toISOString().slice(0, 10);
 const offsetOf = (iso) => { const m = /([+-])(\d{2}):(\d{2})$/.exec(iso); return m ? (m[1] === "-" ? -1 : 1) * (Number(m[2]) * 60 + Number(m[3])) : 0; };
-// minutes since local midnight for an ISO timestamp, in that timestamp's own offset
-const localMinutes = (iso) => { const d = new Date(iso); const m = (d.getUTCHours() * 60 + d.getUTCMinutes() + offsetOf(iso)) % 1440; return (m + 1440) % 1440; };
-const median = (a) => { const s = [...a].sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : null; };
+const localMinutes = (iso) => { const d = new Date(iso); return (((d.getUTCHours() * 60 + d.getUTCMinutes() + offsetOf(iso)) % 1440) + 1440) % 1440; };
 
-// Pure function so it can be tested with recorded data. `now` is a Date.
-export function summarize({ sleep, dailySleep, heartRate }, now) {
-  if (!sleep.length) return { connected: true, hasData: false };
-  const tz = offsetOf(sleep[sleep.length - 1].bedtime_start);
-
-  // Group periods by Oura "day", ignoring afternoon/evening naps (start 14:00–19:59 local).
-  const byDay = {};
+// Pure so it can be tested with recorded data. Naps (starting 14:00–19:59 local) don't count.
+export function summarize(sleep, now) {
+  const nights = {};
   for (const p of sleep) {
     const start = localMinutes(p.bedtime_start);
     if (start >= 14 * 60 && start < 20 * 60) continue;
-    (byDay[p.day] ||= []).push(p);
+    nights[p.day] = (nights[p.day] || 0) + (p.total_sleep_duration || 0);
   }
-  const days = Object.keys(byDay).sort();
-  const lastDay = days[days.length - 1];
-  const periods = byDay[lastDay] || [];
-  const total = periods.reduce((s, p) => s + (p.total_sleep_duration || 0), 0);
-  const bed = periods.reduce((a, p) => (!a || p.bedtime_start < a ? p.bedtime_start : a), null);
-  const wake = periods.reduce((a, p) => (!a || p.bedtime_end > a ? p.bedtime_end : a), null);
-  const score = (dailySleep.find((d) => d.day === lastDay) || {}).score ?? null;
-
-  // Usual window from the main sleeps of the last few weeks (minutes after 18:00 so midnight doesn't wrap).
-  const mains = sleep.filter((p) => p.type === "long_sleep");
-  const shift = (m) => (m - 18 * 60 + 1440) % 1440;
-  const usualStart = median(mains.map((p) => shift(localMinutes(p.bedtime_start))));
-  const usualEnd = median(mains.map((p) => shift(localMinutes(p.bedtime_end))));
-  const nowLocal = shift(((now.getUTCHours() * 60 + now.getUTCMinutes() + tz) % 1440 + 1440) % 1440);
-  const inWindow = usualStart != null && nowLocal >= usualStart && nowLocal < usualEnd;
-
-  // Freshest heart-rate sample decides, if it's recent enough to mean anything.
-  const latestHr = heartRate.length ? heartRate[heartRate.length - 1] : null;
-  const hrAgeMin = latestHr ? Math.round((now - new Date(latestHr.timestamp)) / 60000) : null;
-  let asleep, basis;
-  if (latestHr && hrAgeMin <= 20) {
-    basis = "live";
-    asleep = latestHr.source === "sleep" ? "yes" : latestHr.source === "rest" ? (inWindow ? "yes" : "probably") : "no";
-  } else {
-    basis = "guess";
-    asleep = inWindow ? "probably" : "probably_not";
-  }
-  const lastSync = [latestHr && latestHr.timestamp, wake].filter(Boolean).sort().pop() || null;
-  const toClock = (m) => { if (m == null) return null; const t = (m + 18 * 60) % 1440; return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`; };
-
-  return {
-    connected: true,
-    hasData: true,
-    asleep, basis,
-    lastNight: { day: lastDay, seconds: total, periods: periods.length, bedtime: bed, wake, score },
-    usual: { start: toClock(usualStart), end: toClock(usualEnd), nights: mains.length },
-    lastSync, tzOffsetMinutes: tz,
-    generatedAt: now.toISOString(),
-  };
+  const days = Object.keys(nights).sort();
+  if (!days.length) return { connected: true, hasData: false, generatedAt: now.toISOString() };
+  const day = days[days.length - 1];
+  const tz = offsetOf(sleep[sleep.length - 1].bedtime_start);
+  const today = new Date(now.getTime() + tz * 60000).toISOString().slice(0, 10);
+  return { connected: true, hasData: true, day, seconds: nights[day], isLastNight: day === today, generatedAt: now.toISOString() };
 }
 
 export async function sleepApi(env, ctx) {
   const cached = JSON.parse((await env.PRIVATE.get(CACHE_KEY)) || "null");
   if (cached && Date.now() - Date.parse(cached.generatedAt) < CACHE_MS) return json(cached);
-  if (!env.PRIVATE) return json({ connected: false });
-  let token;
-  try { token = await accessToken(env); } catch (e) { return json({ connected: true, error: "Oura sign-in expired" }, 503); }
-  if (!token) return json({ connected: false });
   const now = new Date();
+  const ymd = (d) => d.toISOString().slice(0, 10);
+  const args = { collection: "sleep", start_date: ymd(new Date(now - 7 * 864e5)), end_date: ymd(new Date(now.getTime() + 864e5)) };
   try {
-    const start = ymd(new Date(now - 21 * 864e5)), end = ymd(new Date(now.getTime() + 864e5));
-    const [sleep, dailySleep, heartRate] = await Promise.all([
-      ouraGet(token, "sleep", { start_date: start, end_date: end }),
-      ouraGet(token, "daily_sleep", { start_date: ymd(new Date(now - 7 * 864e5)), end_date: end }),
-      ouraGet(token, "heartrate", { start_datetime: new Date(now - 3 * 3600e3).toISOString(), end_datetime: now.toISOString() }),
-    ]);
+    let token = await accessToken(env);
+    if (!token) return json({ connected: false });
+    let sleep;
+    try { sleep = await callTool(env, token, "get_collection", args); }
+    catch (e) {
+      if (e.status !== 401) throw e;
+      token = await accessToken(env, true);           // token rejected early: refresh once and retry
+      sleep = await callTool(env, token, "get_collection", args);
+    }
     sleep.sort((a, b) => a.bedtime_start.localeCompare(b.bedtime_start));
-    const out = summarize({ sleep, dailySleep, heartRate }, now);
+    const out = summarize(sleep, now);
     ctx.waitUntil(env.PRIVATE.put(CACHE_KEY, JSON.stringify(out)));
     return json(out);
   } catch (e) {
+    console.error("sleep api:", e.message);
     if (cached) return json({ ...cached, stale: true });
-    return json({ connected: true, error: "Couldn't reach Oura" }, 503);
+    return json({ connected: true, error: true }, 503);
   }
 }

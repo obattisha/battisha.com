@@ -32,6 +32,9 @@ site/               — everything the website serves
   css/ js/ images/ music/ font/ favicon/
 src/index.js        — Cloudflare Worker: serves site/, shortcode redirects,
                       shorten.battisha.com
+src/sleep.js        — sleep section backend: reads hours slept from the oura-mcp Worker
+                      (as an MCP client, via a service binding); connect once at
+                      /oura/connect?key=… (OURA_CONNECT_KEY secret)
 scripts/upload-assets.py — uploads site/ into the SITE KV namespace
 wrangler.jsonc      — Worker config (KV bindings, custom domains)
 sass/               — source SCSS (not deployed)

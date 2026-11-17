@@ -80,6 +80,7 @@
     #journeys { --bg: #13284a; --fg: #f6f3ea; --sec-muted: rgba(246,243,234,.68); }
     #adventure { --bg: #f2683c; --sec-muted: rgba(20,20,20,.75); }
     #maps { --bg: #ead8ae; --sec-muted: #6f5d36; }
+    .sleep { --bg: #d8ccfb; --sec-muted: #4f4378; }
     .info { --bg: #f7d4cb; --sec-muted: #7a463b; }
     .label { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 14px; }
     .label b { color: var(--ink); background: var(--yellow); padding: 1px 6px; font-weight: 600; }
@@ -192,6 +193,20 @@
     .travel-tracker-container #comparisonResults h2, .travel-tracker-container #comparisonResults h3, .travel-tracker-container #comparisonResults h4 { font-family: var(--display) !important; font-weight: 400; color: var(--ink) !important; }
     .travel-tracker-container .suggestion-item:hover { background: var(--yellow) !important; }
 
+    /* ---------- sleep ---------- */
+    .sleep .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .zcard { background: var(--card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 8px 8px 0 var(--ink); padding: clamp(20px, 3vw, 32px); margin-right: 8px; }
+    .zcard .when { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: #6b675e; margin: 0; }
+    .zcard .hrs { font-family: var(--display); font-size: clamp(64px, 11vw, 120px); line-height: .95; letter-spacing: -.03em; margin: 8px 0 6px; }
+    .zcard .hrs small { font-size: .38em; letter-spacing: 0; }
+    .zcard .quip { font-size: 21px; font-weight: 700; margin: 0 0 20px; min-height: 1.4em; }
+    .zgauge { position: relative; height: 12px; background: #ece8f9; border-radius: 99px; overflow: hidden; }
+    .zgauge .ok { position: absolute; top: 0; bottom: 0; left: 70%; width: 20%; background: rgba(46, 158, 91, .35); }
+    .zgauge .fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--ink); border-radius: 99px; transition: width 1.2s cubic-bezier(.2, .8, .2, 1); }
+    .zlegend { display: flex; justify-content: space-between; margin-top: 6px; }
+    .zcard .stale { margin: 16px 0 0; color: #6b675e; font-size: 15px; }
+    @media (max-width: 860px) { .sleep .grid { grid-template-columns: 1fr; } }
+
     /* ---------- info form ---------- */
     .info .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
     #infoForm { background: var(--card); border: 2px solid var(--ink); border-radius: 16px; padding: 24px; box-shadow: 8px 8px 0 var(--ink); }
@@ -228,7 +243,7 @@
     <a class="brand" href="/" title="battisha.com"><svg class="logo" role="img" aria-label="Battisha" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 472.000000 472.000000" preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,472.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"> <path d="M1379 4693 c0 -15 -2 -46 -4 -68 -3 -42 -11 -181 -30 -563 l-6 -127 92 93 c50 51 100 97 110 103 23 12 53 -2 69 -31 10 -18 6 -282 -5 -380 -2 -19 -6 -78 -10 -130 -4 -52 -9 -120 -11 -150 -14 -197 -2 -359 35 -465 56 -156 194 -303 286 -305 14 0 -28 -47 -145 -161 -91 -89 -269 -263 -396 -387 -126 -125 -402 -395 -612 -601 -210 -206 -382 -377 -382 -380 0 -3 629 -6 1397 -6 1560 0 1432 6 1550 -71 133 -88 313 -303 364 -437 12 -31 25 -57 28 -57 3 0 40 32 81 71 41 39 135 128 209 198 324 304 352 343 357 504 3 84 0 101 -32 195 -19 57 -95 224 -169 372 -225 450 -238 497 -198 674 8 32 12 60 11 62 -4 3 -111 -98 -267 -249 -123 -121 -163 -181 -191 -286 -30 -115 -6 -207 127 -481 185 -379 213 -446 213 -501 0 -15 -9 -49 -21 -76 l-20 -48 -182 186 c-224 227 -300 290 -412 340 l-50 23 -825 0 -825 1 -55 31 c-67 38 -116 108 -106 150 9 33 134 158 452 451 54 50 117 109 140 130 55 52 270 252 303 282 14 13 84 78 156 145 228 213 239 224 276 258 40 37 268 249 309 288 15 14 82 77 150 140 68 63 149 138 179 167 l55 52 -75 -19 c-137 -35 -295 -46 -385 -25 l-52 12 -98 -98 c-161 -159 -249 -201 -429 -203 -128 -1 -192 16 -269 71 -75 54 -113 103 -154 200 -26 61 -30 86 -37 218 -15 317 -21 380 -37 437 -8 29 -61 86 -234 258 -202 200 -224 219 -225 193z"/> <path d="M2480 587 c-124 -107 -189 -174 -206 -214 -27 -61 15 -117 118 -162 71 -30 160 -91 214 -148 29 -29 54 -53 57 -53 15 0 121 192 136 247 16 58 0 91 -103 228 -46 61 -90 127 -97 148 -7 20 -15 37 -19 37 -3 0 -48 -37 -100 -83z"/> </g> </svg></a>
     <nav aria-label="Sections" id="nav">
       <a href="#colors"><span class="n">01</span>Colors</a><a href="#photos"><span class="n">02</span>Photos</a><a href="#shorten"><span class="n">03</span>Links</a><a href="#vote"><span class="n">04</span>Vote</a>
-      <a href="#journeys"><span class="n">05</span>Journeys</a><a href="#adventure"><span class="n">06</span>Adventure</a><a href="#maps"><span class="n">07</span>Maps</a><a href="#information"><span class="n">08</span>Information</a>
+      <a href="#journeys"><span class="n">05</span>Journeys</a><a href="#adventure"><span class="n">06</span>Adventure</a><a href="#maps"><span class="n">07</span>Maps</a><a href="#sleep"><span class="n">08</span>Sleep</a><a href="#information"><span class="n">09</span>Information</a>
     </nav>
     <div class="tools">
       <button class="song" id="songBtn" aria-pressed="false">♪ crucial song: off</button>
@@ -1085,11 +1100,30 @@
     </div>
   </section>
 
-  <!-- 08 INFORMATION -->
+  <!-- 08 SLEEP -->
+  <section class="sleep" id="sleep">
+    <div class="wrap grid">
+      <div class="reveal">
+        <p class="label"><b>08</b> Wellness check</p>
+        <h2>How much did Omar sleep last night?</h2>
+        <p class="sub">Straight from his Oura ring. He agreed to this. Mostly.</p>
+      </div>
+      <div class="zcard reveal" id="zcard" aria-live="polite">
+        <p class="when" id="zWhen">Last night</p>
+        <div class="hrs" id="zHrs">…</div>
+        <p class="quip" id="zQuip">Consulting the ring…</p>
+        <div class="zgauge" aria-hidden="true"><div class="ok"></div><div class="fill" id="zFill"></div></div>
+        <div class="zlegend fine"><span>0h</span><span>recommended: 7–9h</span><span>10h</span></div>
+        <p class="stale" id="zStale" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 INFORMATION -->
   <section class="info" id="information">
     <div class="wrap grid">
       <div class="reveal">
-        <p class="label"><b>08</b> Verification</p>
+        <p class="label"><b>09</b> Verification</p>
         <h2>Tell me more about yourself</h2>
         <p class="sub">Totally standard stuff. Every website asks for this.</p>
       </div>
@@ -1217,6 +1251,35 @@
       sRes.className = 'result show err'; sRes.innerHTML = '<b>Couldn’t reach the link factory. Try again.</b>';
     } finally { sBtn.disabled = false; sBtn.textContent = 'Mint my link'; }
   });
+
+  // ---- how much did Omar sleep ----
+  (async () => {
+    const Q = [
+      [3, ['That’s not sleep, that’s a nap with ambition.', 'Someone check on him.', 'Blinked aggressively, then got up.']],
+      [5, ['Running on vibes and caffeine.', 'Concerning. He’ll say he’s fine.', 'Respectfully, go to bed.']],
+      [7, ['Functional, allegedly.', 'Could be worse. Has been worse.', 'A solid “meh”.']],
+      [9, ['Suspiciously responsible.', 'Who is this man and what has he done with Omar?', 'Well-rested and insufferable about it.']],
+      [99, ['Hibernating. Do not disturb.', 'Unemployed behavior.', 'Basically a bear now.']],
+    ];
+    const $z = id => document.getElementById(id);
+    let d;
+    try { d = await (await fetch('/api/sleep', { cache: 'no-store' })).json(); } catch (e) { d = {}; }
+    if (!d.hasData) {
+      $z('zHrs').innerHTML = '??<small>h</small>';
+      $z('zQuip').textContent = d.connected === false ? 'Data unavailable. Omar’s sleep is classified.' : 'The ring is being shy. Try again later.';
+      return;
+    }
+    const h = d.seconds / 3600;
+    let hh = Math.floor(h), mm = Math.round((h - hh) * 60); if (mm === 60) { hh++; mm = 0; }
+    $z('zHrs').innerHTML = `${hh}<small>h</small> ${mm}<small>m</small>`;
+    $z('zQuip').textContent = pick(Q.find(([max]) => h < max)[1]);
+    requestAnimationFrame(() => { $z('zFill').style.width = Math.min(100, h * 10) + '%'; });
+    if (!d.isLastNight) {
+      const day = new Date(d.day + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+      $z('zWhen').textContent = `Most recent night on record · ${day}`;
+      $z('zStale').hidden = false; $z('zStale').textContent = 'His ring hasn’t synced since. Draw your own conclusions.';
+    }
+  })();
 
   // ---- "tell me more about yourself" ----
   const ssnInput = document.getElementById('ssn'), infoForm = document.getElementById('infoForm');

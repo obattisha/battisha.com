@@ -22,7 +22,12 @@ const json = (body, status = 200) =>
 // from fetching another workers.dev Worker on the same account); otherwise over the public URL.
 function mcpFetch(env, path, init) {
   const url = MCP_ORIGIN + path;
-  return env.OURA_MCP ? env.OURA_MCP.fetch(new Request(url, init)) : fetch(url, init);
+  if (!env.OURA_MCP) return fetch(url, init);
+  // Service-binding requests carry no Host header, and the MCP handler rejects those
+  // (DNS-rebinding protection), so set it to the MCP's public hostname.
+  const req = new Request(url, init);
+  req.headers.set("host", new URL(MCP_ORIGIN).host);
+  return env.OURA_MCP.fetch(req);
 }
 
 const b64url = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -118,7 +123,7 @@ async function callTool(env, token, name, args) {
   const post = (body, extra = {}) => mcpFetch(env, "/mcp", { method: "POST", headers: { ...headers, ...extra }, body: JSON.stringify(body) });
   const init = await post({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "battisha.com", version: "1.0" } } });
   if (init.status === 401) { const e = new Error("unauthorized"); e.status = 401; throw e; }
-  if (!init.ok) throw new Error(`MCP initialize failed (${init.status})`);
+  if (!init.ok) throw new Error(`MCP initialize failed (${init.status}): ${(await init.text()).slice(0, 300)}`);
   const session = init.headers.get("mcp-session-id");
   const extra = session ? { "mcp-session-id": session } : {};
   await rpcResult(init);

@@ -184,7 +184,9 @@
     .travel-tracker-container .compare-button:hover { background: var(--yellow) !important; color: var(--ink) !important; }
     .travel-tracker-container .reset-button { background: transparent !important; color: var(--ink) !important; }
     .travel-tracker-container .reset-button:hover { background: var(--red) !important; border-color: var(--red) !important; color: #fff !important; }
-    .travel-tracker-container #countryInput { border: 2px solid var(--ink) !important; border-radius: 10px !important; box-shadow: none !important; text-align: left !important; }
+    .travel-tracker-container #placeSearch::-webkit-search-cancel-button { -webkit-appearance: none; }
+    .travel-tracker-container #placeSearch { -webkit-appearance: none; appearance: none; }
+    .travel-tracker-container #placeSearch { border: 2px solid var(--ink) !important; border-radius: 10px !important; box-shadow: none !important; text-align: left !important; }
     .travel-tracker-container, .travel-tracker-container * { font-family: var(--body); }
     .travel-tracker-container { color: var(--ink) !important; box-shadow: 8px 8px 0 var(--yellow); border: 2px solid var(--ink) !important; }
     .travel-tracker-container .stats { font-family: var(--mono) !important; background: var(--paper) !important; color: var(--ink) !important; border-radius: 10px !important; }
@@ -426,7 +428,7 @@
                 margin-bottom: 20px;
             }
         
-            .travel-tracker-container #countryInput { /* Added container scope */
+            .travel-tracker-container #placeSearch { /* Added container scope */
                 width: 100%;
                 padding: 12px 15px; /* More padding */
                 font-size: 16px;
@@ -435,7 +437,7 @@
                 box-sizing: border-box; /* Include padding in width */
                 transition: border-color 0.3s;
             }
-            .travel-tracker-container #countryInput:focus {
+            .travel-tracker-container #placeSearch:focus {
                 border-color: #3498db; /* Highlight on focus */
                 outline: none;
             }
@@ -640,7 +642,9 @@
             </div>
         
             <div class="input-section">
-                <input type="text" id="countryInput" placeholder="Type a country name to add...">
+                <!-- Browsers treat a box as an address "country" field based on its id/name/placeholder, so avoid
+                     those words, use type=search, and opt out of browser + password-manager autofill. -->
+                <input type="search" id="placeSearch" name="tt-place" placeholder="Where have you been? (e.g. Japan)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="suggestions" aria-label="Add a place you have been" data-1p-ignore data-lpignore="true" data-form-type="other" enterkeyhint="done">
                 <div id="suggestions"></div> </div>
         
             <div id="map"></div>
@@ -701,7 +705,7 @@
         
                     // --- UI Element References (Scoped to container) ---
                     this.container = containerElement; // Store the container
-                    this.countryInput = this.container.querySelector('#countryInput');
+                    this.countryInput = this.container.querySelector('#placeSearch');
                     this.suggestionsDiv = this.container.querySelector('#suggestions');
                     this.resetButton = this.container.querySelector('#resetButton');
                     this.compareButton = this.container.querySelector('#compareButton');

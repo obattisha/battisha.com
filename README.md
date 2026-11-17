@@ -57,5 +57,7 @@ npx wrangler deploy                                                             
 ```
 
 Static files live in KV rather than Workers Static Assets so that uploads go through the regular API token.
+The upload only sends files that changed (tracked in `scripts/upload-manifest.json`; commit it after
+uploading), because the free plan allows 1,000 KV writes a day. Use `--dry-run` to preview.
 
 Built by TheEccentricEgyptian. All rights reserved by Bombastic Industries.

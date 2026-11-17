@@ -12,8 +12,10 @@
 const MCP_ORIGIN = "https://oura-mcp.obattisha.workers.dev";
 const CLIENT_KEY = "mcp_client";
 const TOKENS_KEY = "mcp_tokens";
-const CACHE_KEY = "sleep_hours";
-const CACHE_MS = 10 * 60 * 1000;
+// Cached in Cloudflare's edge cache (free, unlimited) rather than KV, whose free plan allows only
+// 1,000 writes a day. Sleep only changes once a day, so an hour is plenty fresh.
+const CACHE_URL = "https://battisha.com/__cache/sleep-hours";
+const CACHE_SECONDS = 60 * 60;
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
@@ -80,7 +82,7 @@ export async function ouraCallback(url, env) {
   const c = JSON.parse(await env.PRIVATE.get(CLIENT_KEY));
   const tokens = await tokenRequest(env, { grant_type: "authorization_code", code, redirect_uri: c.redirect_uri, client_id: c.client_id, code_verifier: verifier });
   await env.PRIVATE.put(TOKENS_KEY, JSON.stringify(tokens));
-  await env.PRIVATE.delete(CACHE_KEY);
+  await caches.default.delete(CACHE_URL);
   return Response.redirect(`${url.origin}/main#sleep`, 302);
 }
 
@@ -157,8 +159,8 @@ export function summarize(sleep, now) {
 }
 
 export async function sleepApi(env, ctx) {
-  const cached = JSON.parse((await env.PRIVATE.get(CACHE_KEY)) || "null");
-  if (cached && Date.now() - Date.parse(cached.generatedAt) < CACHE_MS) return json(cached);
+  const hit = await caches.default.match(CACHE_URL);
+  if (hit) return json(await hit.json());
   const now = new Date();
   const ymd = (d) => d.toISOString().slice(0, 10);
   const args = { collection: "sleep", start_date: ymd(new Date(now - 7 * 864e5)), end_date: ymd(new Date(now.getTime() + 864e5)) };
@@ -174,11 +176,10 @@ export async function sleepApi(env, ctx) {
     }
     sleep.sort((a, b) => a.bedtime_start.localeCompare(b.bedtime_start));
     const out = summarize(sleep, now);
-    ctx.waitUntil(env.PRIVATE.put(CACHE_KEY, JSON.stringify(out)));
+    ctx.waitUntil(caches.default.put(CACHE_URL, new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": `max-age=${CACHE_SECONDS}` } })));
     return json(out);
   } catch (e) {
     console.error("sleep api:", e.message);
-    if (cached) return json({ ...cached, stale: true });
     return json({ connected: true, error: true }, 503);
   }
 }

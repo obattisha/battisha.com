@@ -26,13 +26,22 @@ async function createCode(env, code, target) {
 // JSON API used by the shortener section on the main page.
 async function shortenApi(req, env) {
   const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
-  if (req.method === "GET") return json({ count: (await env.SHORTCODES.list()).keys.length });
+  // The count is edge-cached for 10 minutes: KV lists are limited to 1,000 a day on the free plan.
+  const countUrl = "https://battisha.com/__cache/shortcode-count";
+  if (req.method === "GET") {
+    const hit = await caches.default.match(countUrl);
+    if (hit) return json(await hit.json());
+    const body = { count: (await env.SHORTCODES.list()).keys.length };
+    await caches.default.put(countUrl, new Response(JSON.stringify(body), { headers: { "cache-control": "max-age=600" } }));
+    return json(body);
+  }
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
   let body;
   try { body = await req.json(); } catch { return json({ error: "That wasn't valid JSON." }, 400); }
   const code = String(body.shortcode || "").trim(), target = String(body.url || "").trim();
   const err = await createCode(env, code, target);
   if (err) return json({ error: err }, err.includes("claimed") || err.includes("already a page") ? 409 : 400);
+  await caches.default.delete(countUrl);   // so the creator sees the new count
   return json({ short: `https://battisha.com/${code}` }, 201);
 }
 

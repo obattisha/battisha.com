@@ -13,9 +13,8 @@ const MCP_ORIGIN = "https://oura-mcp.obattisha.workers.dev";
 const CLIENT_KEY = "mcp_client";
 const TOKENS_KEY = "mcp_tokens";
 // Cached in Cloudflare's edge cache (free, unlimited) rather than KV, whose free plan allows only
-// 1,000 writes a day. Sleep only changes once a day, so an hour is plenty fresh.
+// 1,000 writes a day. How long depends on whether there could be anything new (see cacheSeconds).
 const CACHE_URL = "https://battisha.com/__cache/sleep-hours";
-const CACHE_SECONDS = 60 * 60;
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
@@ -155,7 +154,20 @@ export function summarize(sleep, now) {
   const day = days[days.length - 1];
   const tz = offsetOf(sleep[sleep.length - 1].bedtime_start);
   const today = new Date(now.getTime() + tz * 60000).toISOString().slice(0, 10);
-  return { connected: true, hasData: true, day, seconds: nights[day], isLastNight: day === today, generatedAt: now.toISOString() };
+  return { connected: true, hasData: true, day, seconds: nights[day], isLastNight: day === today, tzOffsetMinutes: tz, generatedAt: now.toISOString() };
+}
+
+// Only ask the MCP when new data could exist: once today's night has synced, nothing changes until
+// tomorrow, so cache until Omar's local midnight. Before that, check hourly from 06:00 local until it
+// shows up, and not at all overnight (he's asleep; nothing will sync). Each check costs an MCP
+// sign-in refresh, which writes to KV, so this keeps it to a handful a day.
+export function cacheSeconds(out, now) {
+  if (!out.hasData) return 3600;
+  const local = new Date(now.getTime() + out.tzOffsetMinutes * 60000);
+  const secsToday = local.getUTCHours() * 3600 + local.getUTCMinutes() * 60 + local.getUTCSeconds();
+  if (out.isLastNight) return Math.max(60, 86400 - secsToday);           // until local midnight
+  if (secsToday < 6 * 3600) return Math.max(60, 6 * 3600 - secsToday);   // until 06:00 local
+  return 3600;                                                             // hourly until it syncs
 }
 
 export async function sleepApi(env, ctx) {
@@ -176,10 +188,13 @@ export async function sleepApi(env, ctx) {
     }
     sleep.sort((a, b) => a.bedtime_start.localeCompare(b.bedtime_start));
     const out = summarize(sleep, now);
-    ctx.waitUntil(caches.default.put(CACHE_URL, new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": `max-age=${CACHE_SECONDS}` } })));
+    ctx.waitUntil(caches.default.put(CACHE_URL, new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": `max-age=${cacheSeconds(out, now)}` } })));
     return json(out);
   } catch (e) {
     console.error("sleep api:", e.message);
-    return json({ connected: true, error: true }, 503);
+    // remember the failure for 15 minutes so an outage doesn't mean a retry on every page view
+    const fail = { connected: true, error: true, generatedAt: new Date().toISOString() };
+    ctx.waitUntil(caches.default.put(CACHE_URL, new Response(JSON.stringify(fail), { headers: { "content-type": "application/json", "cache-control": "max-age=900" } })));
+    return json(fail, 503);
   }
 }

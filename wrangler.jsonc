@@ -4,7 +4,8 @@
   "compatibility_date": "2026-10-01",
   "kv_namespaces": [
     { "binding": "SHORTCODES", "id": "5515977d3f3344dd9ba89abd079ec2b0" },
-    { "binding": "SITE", "id": "dbf0b80728d247c99a5d4506bd31f1da" }
+    { "binding": "SITE", "id": "dbf0b80728d247c99a5d4506bd31f1da" },
+    { "binding": "PRIVATE", "id": "d48a0b036f3d4903943e39b2460c72dd" }  // Oura tokens + sleep cache; never served
   ],
   "workers_dev": true,
   "routes": [

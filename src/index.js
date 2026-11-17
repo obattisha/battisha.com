@@ -1,3 +1,4 @@
+import { ouraConnect, ouraCallback, sleepApi } from "./sleep.js";
 // battisha.com: static site + shortcode redirects (port of shortcode.php / shorten.php).
 const SHORTCODE_RE = /^\/([a-zA-Z0-9]+)$/;
 
@@ -7,7 +8,7 @@ const normalize = (u) => (/^https?:\/\//i.test(u) ? u : "http://" + u);
 
 // A shortcode can't shadow a real page or file (site files are served before shortcodes).
 async function isReserved(code, env) {
-  if (["api", "shorten", "preview"].includes(code.toLowerCase())) return true;
+  if (["api", "shorten", "preview", "oura"].includes(code.toLowerCase())) return true;
   return (await env.SITE.get(code)) !== null || (await env.SITE.get(code + ".html")) !== null;
 }
 
@@ -143,6 +144,9 @@ export default {
     }
     if (path === "/shorten" || path === "/shorten.php") return Response.redirect("https://shorten.battisha.com/", 301);
     if (path === "/api/shorten") return shortenApi(req, env);
+    if (path === "/api/sleep") return sleepApi(env, ctx);
+    if (path === "/oura/connect") return ouraConnect(url, env);
+    if (path === "/oura/callback") return ouraCallback(url, env);
 
     // Old site POSTed the joke form to the static "submit" page; serve it, store nothing.
     const asset = await serveFile(req, env, ctx, path);

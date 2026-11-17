@@ -5,6 +5,36 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&
 const normalize = (u) => (/^https?:\/\//i.test(u) ? u : "http://" + u);
 
 
+// A shortcode can't shadow a real page or file (site files are served before shortcodes).
+async function isReserved(code, env) {
+  if (["api", "shorten", "preview"].includes(code.toLowerCase())) return true;
+  return (await env.SITE.get(code)) !== null || (await env.SITE.get(code + ".html")) !== null;
+}
+
+// Creates a shortcode; returns an error message string, or null on success.
+async function createCode(env, code, target) {
+  if (!/^[a-zA-Z0-9]{1,40}$/.test(code)) return "Short link must be letters and numbers only.";
+  if (!target) return "You forgot where the link goes.";
+  if (target.length > 2000) return "That URL is longer than this website. Impressive, but no.";
+  if (await isReserved(code, env)) return `battisha.com/${code} is already a page on my site. Nice try.`;
+  if (await env.SHORTCODES.get(code)) return `Someone already claimed battisha.com/${code}. Life is unfair.`;
+  await env.SHORTCODES.put(code, normalize(target));
+  return null;
+}
+
+// JSON API used by the shortener section on the main page.
+async function shortenApi(req, env) {
+  const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  if (req.method === "GET") return json({ count: (await env.SHORTCODES.list()).keys.length });
+  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
+  let body;
+  try { body = await req.json(); } catch { return json({ error: "That wasn't valid JSON." }, 400); }
+  const code = String(body.shortcode || "").trim(), target = String(body.url || "").trim();
+  const err = await createCode(env, code, target);
+  if (err) return json({ error: err }, err.includes("claimed") || err.includes("already a page") ? 409 : 400);
+  return json({ short: `https://battisha.com/${code}` }, 201);
+}
+
 async function listCodes(env) {
   const out = [];
   let cursor;
@@ -23,12 +53,12 @@ async function adminPage(req, env) {
     const f = await req.formData();
     const action = f.get("action");
     const code = String(f.get("shortcode") || "").trim();
-    if (!/^[a-zA-Z0-9]+$/.test(code)) msg = "Error: shortcode must be letters/numbers only.";
-    else if (action === "delete") {
-      await env.SHORTCODES.delete(code); msg = `Deleted ${code}.`;
+    if (action === "delete") {
+      if (/^[a-zA-Z0-9]+$/.test(code)) { await env.SHORTCODES.delete(code); msg = `Deleted ${code}.`; }
+    } else {
+      const err = await createCode(env, code, String(f.get("url") || "").trim());
+      msg = err ? `Error: ${err}` : "Shortcode created successfully.";
     }
-    else if (await env.SHORTCODES.get(code)) msg = "Error: Shortcode already exists.";
-    else { await env.SHORTCODES.put(code, normalize(String(f.get("url") || "").trim())); msg = "Shortcode created successfully."; }
   }
   const isError = msg.startsWith("Error");
   const rows = (await listCodes(env)).map(([k, v]) => `
@@ -112,6 +142,7 @@ export default {
       return file || Response.redirect("https://shorten.battisha.com/", 302);
     }
     if (path === "/shorten" || path === "/shorten.php") return Response.redirect("https://shorten.battisha.com/", 301);
+    if (path === "/api/shorten") return shortenApi(req, env);
 
     // Old site POSTed the joke form to the static "submit" page; serve it, store nothing.
     const asset = await serveFile(req, env, ctx, path);

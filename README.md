@@ -24,10 +24,14 @@ Shortcode generator is at [shorten.battisha.com](https://shorten.battisha.com). 
 ## Structure
 
 ```
+templates/main.html — source of the main page (build with: python3 scripts/build-main.py)
+templates/tracker.html — travel tracker partial inserted into the main page
 site/               — everything the website serves
   index.html        — entry page ("are you sure?")
-  main              — main site
-  social, submit, error — extra pages
+  main              — main site (generated from templates/; don't edit by hand)
+  main-old          — the 2019 edition, kept for nostalgia
+  social, submit, error — extra pages (share css/battisha.css)
+  js/dodge.js       — the runaway-button behaviour ("No" on the entry page, "Hire me")
   data/countries.json — country list for the travel tracker
   css/ js/ images/ music/ font/ favicon/
 src/index.js        — Cloudflare Worker: serves site/, shortcode redirects,
@@ -47,6 +51,7 @@ Needs a Cloudflare API token with Workers Scripts, Workers KV Storage and Worker
 ```bash
 npm install
 export CLOUDFLARE_API_TOKEN=... CLOUDFLARE_ACCOUNT_ID=8262aad3d4d68e3949cb125492a30315
+python3 scripts/build-main.py                                                              # main page
 python3 scripts/upload-assets.py $CLOUDFLARE_ACCOUNT_ID dbf0b80728d247c99a5d4506bd31f1da   # site files -> KV
 npx wrangler deploy                                                                        # Worker code
 ```

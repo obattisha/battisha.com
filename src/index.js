@@ -70,41 +70,51 @@ async function adminPage(req, env) {
       </tr>`).join("");
   return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Battisha Shortener</title>
-<link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/tooplate-style.css">
+<link rel="stylesheet" href="/css/battisha.css">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"><link rel="shortcut icon" href="/favicon/favicon.ico">
+<meta name="theme-color" content="#ffc200">
 <style>
-  body { padding-top: 0; color: #353535; }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 64px 16px; }
-  h1 { font-weight: 700; margin-bottom: 4px; }
-  h2 { font-weight: 700; font-size: 1.5rem; margin: 56px 0 16px; }
-  .prefix { display: flex; align-items: center; gap: 8px; }
-  .prefix span { font-weight: 700; white-space: nowrap; }
-  .contact-form .form-control { margin: 8px 0 16px; }
-  label { font-weight: 700; font-size: 14px; color: #5b5b5b; margin: 0; }
-  .msg { padding: 12px 16px; border-radius: 8px; font-weight: 700; font-size: 16px; margin: 16px 0 0; }
-  .msg.ok { background: #fff6d6; color: #6b5200; }
-  .msg.err { background: #ffe6e6; color: #a31515; }
+  body { --bg: var(--yellow); }
+  .wrap { width: 100%; max-width: 820px; margin: 0 auto; padding: 56px 20px 72px; }
+  h1 { font-size: clamp(40px, 7vw, 72px); }
+  .sub { color: rgba(20,20,20,.75); }
+  h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 56px 0 16px; }
+  form, .list { background: var(--card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 8px 8px 0 var(--ink); padding: 24px; margin: 28px 8px 0 0; }
+  label { display: block; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; margin: 0 0 6px; }
+  .field { display: flex; align-items: stretch; border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; margin-bottom: 18px; background: #fff; }
+  .field span { padding: 12px 0 12px 14px; font-weight: 700; white-space: nowrap; }
+  .field input { flex: 1; min-width: 0; border: 0; padding: 12px 14px 12px 2px; outline: none; background: transparent; font-family: var(--body); }
+  .field.plain input { padding-left: 14px; }
+  .field:focus-within { box-shadow: 0 0 0 4px rgba(255,194,0,.6); }
+  form .btn { width: 100%; }
+  .msg { padding: 12px 16px; border-radius: 10px; font-weight: 700; margin: 24px 8px 0 0; border: 2px solid var(--ink); }
+  .msg.ok { background: #fff6d6; } .msg.err { background: #ffe3df; }
+  .list { padding: 8px 20px; }
   table { width: 100%; border-collapse: collapse; }
-  th { font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: #8a8a8a; padding: 8px; border-bottom: 2px solid #ffc200; }
-  td { padding: 12px 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
-  td.target { color: #5b5b5b; word-break: break-all; font-size: 15px; }
-  a.code { font-weight: 700; color: #353535; white-space: nowrap; }
-  .del { background: transparent; border: 1px solid #ddd; border-radius: 50px; padding: 4px 14px; font-weight: 700; color: #5b5b5b; cursor: pointer; transition: all .3s ease; }
-  .del:hover { border-color: #e04848; color: #e04848; }
-  @media (max-width: 575px) { a.code { white-space: normal; word-break: break-all; } .prefix { flex-direction: column; align-items: stretch; gap: 0; } }
-</style></head><body><div class="wrap">
+  th { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); text-align: left; padding: 12px 8px; border-bottom: 2px solid var(--ink); }
+  td { padding: 12px 8px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  tr:last-child td { border-bottom: 0; }
+  td.target { color: var(--muted); word-break: break-all; font-size: 15px; }
+  a.code { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+  .del { background: transparent; border: 2px solid var(--ink); border-radius: 99px; padding: 4px 14px; font-weight: 700; cursor: pointer; }
+  .del:hover { background: var(--red); border-color: var(--red); color: #fff; }
+  @media (max-width: 575px) { a.code { white-space: normal; word-break: break-all; } }
+</style></head><body>
+<header class="bar"><div class="bar-inner"><a href="https://battisha.com/main" title="battisha.com"><img class="logo" src="/images/logo-yellow.svg" alt="battisha.com"></a><a class="back" href="https://battisha.com/main#shorten">← back to the website</a></div></header>
+<div class="wrap">
+<p class="label"><b>↗</b> A public service</p>
 <h1>Shorten a link</h1>
-<p class="small-text" style="padding-left:0">Make a battisha.com short link. Anyone can add or remove them, so play nice.</p>
+<p class="sub">Make a battisha.com short link. Anyone can add or remove them, so play nice.</p>
 ${msg ? `<p class="msg ${isError ? "err" : "ok"}">${esc(msg)}</p>` : ""}
-<form method="post" class="contact-form">
+<form method="post" autocomplete="off">
   <label for="shortcode">Short link</label>
-  <div class="prefix"><span>battisha.com/</span><input class="form-control" name="shortcode" id="shortcode" required pattern="[a-zA-Z0-9]+" title="Letters and numbers only" placeholder="mylink" autocomplete="off"></div>
+  <div class="field"><span>battisha.com/</span><input name="shortcode" id="shortcode" required pattern="[a-zA-Z0-9]+" title="Letters and numbers only" placeholder="mylink"></div>
   <label for="url">Goes to</label>
-  <input class="form-control" name="url" id="url" required placeholder="https://example.com/some/long/page" autocomplete="off">
-  <input type="submit" class="form-control submit-btn" value="Create short link">
+  <div class="field plain"><input name="url" id="url" required placeholder="https://example.com/some/long/page"></div>
+  <button type="submit" class="btn">Create short link</button>
 </form>
 <h2>All short links</h2>
-<div class="table-responsive"><table><tr><th>Short link</th><th>Goes to</th><th></th></tr>${rows}</table></div>
+<div class="list"><table><tr><th>Short link</th><th>Goes to</th><th></th></tr>${rows}</table></div>
 </div></body></html>`, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
 }
 
@@ -143,6 +153,7 @@ export default {
       return file || Response.redirect("https://shorten.battisha.com/", 302);
     }
     if (path === "/shorten" || path === "/shorten.php") return Response.redirect("https://shorten.battisha.com/", 301);
+    if (path === "/preview") return Response.redirect(`${url.origin}/main`, 301);
     if (path === "/api/shorten") return shortenApi(req, env);
     if (path === "/api/sleep") return sleepApi(env, ctx);
     if (path === "/oura/connect") return ouraConnect(url, env);
@@ -156,7 +167,7 @@ export default {
     if (m) {
       const target = await env.SHORTCODES.get(m[1]);
       if (target) return Response.redirect(normalize(target), 302);
-      return Response.redirect(`${url.origin}/error`, 302);
+      return Response.redirect(`${url.origin}/error?code=${m[1]}`, 302);
     }
     const errPage = await serveFile(req, env, ctx, "/error");
     return new Response(errPage.body, { status: 404, headers: errPage.headers });

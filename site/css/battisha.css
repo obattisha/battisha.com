@@ -1,0 +1,37 @@
+/* Shared look for battisha.com's small pages (entry, social, submit, 404, shortener).
+   Same tokens as the main page (templates/main.html). */
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap");
+
+:root {
+  --ink: #141414; --paper: #f6f3ea; --card: #fff; --yellow: #ffc200; --muted: #6b675e; --rule: rgba(20, 20, 20, .14); --red: #e0412f;
+  --display: "Archivo Black", "Arial Black", sans-serif; --body: "Archivo", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+html { overflow-x: clip; }
+body { margin: 0; min-height: 100vh; background: var(--bg, var(--paper)); color: var(--fg, var(--ink)); font-family: var(--body); font-size: 17px; line-height: 1.55; display: flex; flex-direction: column; overflow-x: clip; }
+a { color: inherit; }
+button, input { font: inherit; }
+::selection { background: var(--yellow); }
+
+.bar { background: var(--ink); color: var(--paper); }
+.bar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 clamp(14px, 2vw, 28px); font-family: var(--mono); font-size: 13px; }
+.bar .logo { width: 34px; height: 34px; display: block; color: var(--yellow); transition: transform .2s; }
+.bar a:hover .logo { transform: rotate(-8deg) scale(1.08); }
+.bar a.back { text-decoration: none; opacity: .75; } .bar a.back:hover { opacity: 1; color: var(--yellow); }
+
+.stage { flex: 1; display: grid; place-items: center; padding: 64px 20px; }
+.stage .inner { width: 100%; max-width: 760px; }
+.label { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 16px; }
+.label b { color: var(--ink); background: var(--yellow); padding: 1px 6px; font-weight: 600; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 8vw, 88px); line-height: .98; letter-spacing: -.02em; margin: 0; }
+.sub { font-size: 19px; color: var(--muted); max-width: 44ch; margin: 18px 0 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); padding: 13px 26px; border-radius: 99px; font-weight: 700; font-size: 17px; cursor: pointer; text-decoration: none; transition: transform .15s ease, background .2s, color .2s; }
+.btn:hover { background: var(--yellow); color: var(--ink); transform: translateY(-2px); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--yellow); }
+.fine { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+footer.foot { padding: 20px clamp(14px, 2vw, 28px); font-family: var(--mono); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+@media (prefers-reduced-motion: reduce) { .btn, .bar .logo { transition: none; } }

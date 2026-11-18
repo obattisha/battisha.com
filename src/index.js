@@ -127,26 +127,54 @@ ${msg ? `<p class="msg ${isError ? "err" : "ok"}">${esc(msg)}</p>` : ""}
 </div></body></html>`, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
 }
 
-// Static files live in the SITE KV namespace (uploaded by scripts/upload-assets.py), cached at the edge.
+// Static files live in the SITE KV namespace (uploaded by scripts/upload-assets.py).
+//
+// Caching, in two layers:
+//  - Cloudflare's edge keeps every file for a week, so most requests never touch KV (whose free
+//    plan has daily limits). The upload script purges exactly the files it changed, so a deploy
+//    shows up right away.
+//  - Browsers must re-check pages, CSS and JS on every visit ("no-cache" + ETag). When nothing
+//    changed that's a tiny 304 answered from the edge, so visitors always see the latest version.
+//    Images, fonts and audio rarely change, so browsers keep those for a day.
+const ALWAYS_FRESH = /^(text\/html|text\/css|text\/javascript|application\/json|application\/manifest)/;
+
 async function serveFile(req, env, ctx, pathname) {
   let key = decodeURIComponent(pathname).replace(/^\/+/, "").replace(/\/+$/, "");
   if (key === "") key = "index.html";
   const cacheKey = new Request(new URL("/" + key, req.url).toString());
   const cache = caches.default;
-  const hit = await cache.match(cacheKey);
-  if (hit) return hit;
-  let { value, metadata } = await env.SITE.getWithMetadata(key, "arrayBuffer");
-  if (value === null && !key.includes(".")) ({ value, metadata } = await env.SITE.getWithMetadata(key + ".html", "arrayBuffer"));
-  if (value === null) return null;
-  const isHtml = (metadata?.ct || "").startsWith("text/html");
-  const res = new Response(value, { headers: {
-    "content-type": metadata?.ct || "application/octet-stream",
-    "cache-control": isHtml ? "public, max-age=300" : "public, max-age=86400",
-  } });
-  // Only cache non-HTML at the edge: cached pages could outlive a deploy (KV takes ~60s to propagate,
-  // so a purge right after upload can re-cache the old page). KV's own short cache keeps HTML fast.
-  if (!isHtml) ctx.waitUntil(cache.put(cacheKey, res.clone()));
-  return res;
+  let res = await cache.match(cacheKey);
+  if (!res) {
+    let { value, metadata } = await env.SITE.getWithMetadata(key, "arrayBuffer");
+    if (value === null && !key.includes(".")) ({ value, metadata } = await env.SITE.getWithMetadata(key + ".html", "arrayBuffer"));
+    if (value === null) return null;
+    const digest = new Uint8Array(await crypto.subtle.digest("SHA-1", value));
+    // Weak ETag: Cloudflare edits HTML on the way out (bot-detection script, compression), which
+    // strips strong ETags but keeps weak ones.
+    const etag = 'W/"' + [...digest.slice(0, 10)].map((b) => b.toString(16).padStart(2, "0")).join("") + '"';
+    res = new Response(value, { headers: {
+      "content-type": metadata?.ct || "application/octet-stream",
+      etag,
+      // Cloudflare drops even weak ETags from HTML it injects scripts into, so pages are revalidated
+      // by date instead. The edge copy is refetched after every purge, i.e. whenever the file changes.
+      "last-modified": new Date().toUTCString(),
+      "cache-control": "public, max-age=604800",   // edge copy only; browsers get the header below
+    } });
+    ctx.waitUntil(cache.put(cacheKey, res.clone()));
+  }
+  const type = res.headers.get("content-type") || "";
+  const etag = res.headers.get("etag");
+  const lastModified = res.headers.get("last-modified");
+  const browser = ALWAYS_FRESH.test(type) ? "no-cache" : "public, max-age=86400";
+  const strip = (t) => t.trim().replace(/^W\//, "");
+  if (etag && (req.headers.get("if-none-match") || "").split(",").map(strip).includes(strip(etag))) {
+    return new Response(null, { status: 304, headers: { etag, "cache-control": browser } });
+  }
+  const since = req.headers.get("if-modified-since");
+  if (!req.headers.get("if-none-match") && since && lastModified && Date.parse(since) >= Date.parse(lastModified)) {
+    return new Response(null, { status: 304, headers: { "last-modified": lastModified, "cache-control": browser } });
+  }
+  return new Response(res.body, { headers: { "content-type": type, etag, "last-modified": lastModified, "cache-control": browser } });
 }
 
 export default {
@@ -178,7 +206,7 @@ export default {
       if (target) return Response.redirect(normalize(target), 302);
       return Response.redirect(`${url.origin}/error?code=${m[1]}`, 302);
     }
-    const errPage = await serveFile(req, env, ctx, "/error");
+    const errPage = await serveFile(new Request(req.url), env, ctx, "/error");   // no If-None-Match: always a full 404 page
     return new Response(errPage.body, { status: 404, headers: errPage.headers });
   },
 };

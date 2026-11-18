@@ -1286,9 +1286,13 @@
     $z('zHrs').innerHTML = `${hh}<small>h</small> ${mm}<small>m</small>`;
     $z('zQuip').textContent = pick(Q.find(([max]) => h < max)[1]);
     requestAnimationFrame(() => { $z('zFill').style.width = Math.min(100, h * 10) + '%'; });
+    // Oura files a night under the day he woke up, so show "the evening before → that morning".
+    const fmtDay = t => new Date(t).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+    const woke = Date.parse(d.day + 'T12:00:00Z');
+    const nightOf = `${fmtDay(woke - 864e5)} → ${fmtDay(woke)}`;
+    $z('zWhen').textContent = `Last night · ${nightOf}`;
     if (!d.isLastNight) {
-      const day = new Date(d.day + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
-      $z('zWhen').textContent = `Most recent night on record · ${day}`;
+      $z('zWhen').textContent = `Most recent night on record · ${nightOf}`;
       $z('zStale').hidden = false; $z('zStale').textContent = 'His ring hasn’t synced since. Draw your own conclusions.';
     }
   })();
